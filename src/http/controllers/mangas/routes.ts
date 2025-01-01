@@ -58,19 +58,21 @@ export async function mangaRoutes(app: FastifyTypedInstance) {
                     offset: z.string()
                 }),
                 response: {
-                    200: z
-                        .array(
-                            z.object({
-                                id: z.string(),
-                                name: z.string(),
-                                date: z.string(),
-                                url: z.string(),
-                                about: z.string().optional(),
-                                createdAt: z.string(),
-                                updatedAt: z.string()
-                            })
-                        )
-                        .describe("Successfully Get Paginated Mangas"),
+                    200: z.object({
+                        mangas: z
+                            .array(
+                                z.object({
+                                    id: z.string(),
+                                    name: z.string(),
+                                    date: z.string(),
+                                    url: z.string(),
+                                    about: z.string().nullable(),
+                                    createdAt: z.date(),
+                                    updatedAt: z.date()
+                                })
+                            )
+                            .describe("Successfully Get Paginated Mangas")
+                    }),
                     400: z
                         .object({
                             message: z.string(),
