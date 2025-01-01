@@ -1,0 +1,19 @@
+{
+    "extends": [
+        "@rocketseat/eslint-config/node"
+    ],
+    "rules": {
+        "camelcase": "off",
+        "no-useless-constructor": "off",
+        "prettier/prettier": [
+            "error",
+            {
+                "endOfLine": "auto",
+                "trailingComma": "none",
+                "tabWidth": 4,
+                "useTabs": false
+            }
+        ],
+        "@typescript-eslint/no-explicit-any": "off"
+    }
+}

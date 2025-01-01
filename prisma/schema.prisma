@@ -1,0 +1,77 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id            String         @id @default(uuid())
+  name          String
+  username      String         @unique
+  email         String         @unique
+  password_hash String
+  createdAt     DateTime       @default(now())
+  updatedAt     DateTime       @default(now())
+  role          Role           @default(user)
+  subscriptions Subscription[]
+
+  @@map("users")
+}
+
+enum Role {
+  user
+  admin
+}
+
+model Manga {
+  id        String   @id @default(uuid())
+  name      String   @unique
+  date      WeekDay
+  url       String
+  about     String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @default(now())
+
+  subscriptions Subscription[]
+
+  @@map("mangas")
+}
+
+enum WeekDay {
+  mon
+  tue
+  wed
+  thu
+  fri
+  sat
+  sun
+}
+
+model Chapter {
+  id             String       @id @default(uuid())
+  subscriptions  Subscription @relation(fields: [subscriptionId], references: [id], onDelete: Cascade)
+  subscriptionId String
+  number         Int
+
+  @@unique([subscriptionId, number])
+  @@map("chapters")
+}
+
+model Subscription {
+  id       String    @id @default(uuid())
+  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId   String
+  manga    Manga     @relation(fields: [mangaId], references: [id], onDelete: Cascade)
+  mangaId  String
+  rating   Int
+  chapters Chapter[]
+
+  @@unique([userId, mangaId])
+  @@map("subscriptions")
+}
