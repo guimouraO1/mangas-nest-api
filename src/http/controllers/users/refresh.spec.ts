@@ -19,12 +19,10 @@ describe("Refresh token controller", () => {
             username: "jhondoe"
         });
 
-        const authResponse = await request(app.server)
-            .post("/auth/session")
-            .send({
-                email: "jhondoe@example.com",
-                password: "123456"
-            });
+        const authResponse = await request(app.server).post("/auth/session").send({
+            email: "jhondoe@example.com",
+            password: "123456"
+        });
 
         const cookies = authResponse.get("Set-Cookie");
 
@@ -35,8 +33,6 @@ describe("Refresh token controller", () => {
 
         expect(response.statusCode).toEqual(200);
         expect(response.body).toEqual({ token: expect.any(String) });
-        expect(response.get("Set-Cookie")).toEqual([
-            expect.stringContaining("refreshToken=")
-        ]);
+        expect(response.get("Set-Cookie")).toEqual([expect.stringContaining("refreshToken=")]);
     });
 });

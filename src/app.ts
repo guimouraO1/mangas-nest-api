@@ -46,10 +46,20 @@ app.register(fastifySwagger, {
         info: {
             title: "Manga Nest API",
             version: "1.0.0"
+        },
+        components: {
+            securitySchemes: {
+                BearerAuth: {
+                    type: "http",
+                    scheme: "bearer",
+                    bearerFormat: "JWT"
+                }
+            }
         }
     },
     transform: jsonSchemaTransform
 });
+
 app.register(fastifySwaggerUi, {
     routePrefix: "/docs"
 });
@@ -70,8 +80,7 @@ app.setErrorHandler((error, _request, reply) => {
     }
 
     if (hasZodFastifySchemaValidationErrors(error)) {
-        const validation =
-            error.validation as ZodFastifySchemaValidationError[];
+        const validation = error.validation as ZodFastifySchemaValidationError[];
 
         const formattedErrors = validation.map((err) => ({
             errorCode: err.params.issue.code,

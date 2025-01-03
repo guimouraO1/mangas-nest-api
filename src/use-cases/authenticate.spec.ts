@@ -39,9 +39,7 @@ describe("Authenticate use case", () => {
     });
 
     it("should not be able to authenticate with wrong email", async () => {
-        await expect(() => sut.execute(testUser)).rejects.toBeInstanceOf(
-            InvalidCredentialsError
-        );
+        await expect(() => sut.execute(testUser)).rejects.toBeInstanceOf(InvalidCredentialsError);
     });
 
     it("should not be able to authenticate with wrong email", async () => {
@@ -52,8 +50,6 @@ describe("Authenticate use case", () => {
             username: "Jhondoe"
         });
 
-        await expect(() => sut.execute(testUser)).rejects.toBeInstanceOf(
-            InvalidCredentialsError
-        );
+        await expect(() => sut.execute(testUser)).rejects.toBeInstanceOf(InvalidCredentialsError);
     });
 });

@@ -14,11 +14,7 @@ interface CreateMangaUseCaseResponse {
 export class CreateMangaUseCase {
     constructor(private mangasRepository: MangasRepository) {}
 
-    async execute({
-        name,
-        date,
-        url
-    }: CreateMangaUseCaseRequest): Promise<CreateMangaUseCaseResponse> {
+    async execute({ name, date, url }: CreateMangaUseCaseRequest): Promise<CreateMangaUseCaseResponse> {
         const manga = await this.mangasRepository.create({
             name,
             date,

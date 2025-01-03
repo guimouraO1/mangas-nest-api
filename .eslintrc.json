@@ -11,7 +11,8 @@
                 "endOfLine": "auto",
                 "trailingComma": "none",
                 "tabWidth": 4,
-                "useTabs": false
+                "useTabs": false,
+                "printWidth": 180
             }
         ],
         "@typescript-eslint/no-explicit-any": "off"

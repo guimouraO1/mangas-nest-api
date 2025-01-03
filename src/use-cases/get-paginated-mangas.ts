@@ -13,10 +13,7 @@ interface GetPaginatedMangasUseCaseResponse {
 export class GetPaginatedMangasUseCase {
     constructor(private mangasRepository: MangasRepository) {}
 
-    async execute({
-        page,
-        offset
-    }: GetPaginatedMangasUseCaseRequest): Promise<GetPaginatedMangasUseCaseResponse> {
+    async execute({ page, offset }: GetPaginatedMangasUseCaseRequest): Promise<GetPaginatedMangasUseCaseResponse> {
         const mangas = await this.mangasRepository.getPaginatedMangas({
             page,
             offset

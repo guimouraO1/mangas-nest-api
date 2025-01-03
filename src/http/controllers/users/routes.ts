@@ -111,8 +111,7 @@ export async function userRoutes(app: FastifyTypedInstance) {
                 }
             }
         },
-        async (_, reply) =>
-            reply.clearCookie(env.REFRESH_COOKIE_NAME).status(200).send({})
+        async (_, reply) => reply.clearCookie(env.REFRESH_COOKIE_NAME).status(200).send({})
     );
     app.patch(
         "/auth/refresh-token",
