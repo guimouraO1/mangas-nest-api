@@ -1,7 +1,6 @@
 import { prisma } from "@/lib/prisma";
 import { Prisma } from "@prisma/client";
 import { MangasRepository } from "../mangas-repository";
-import { DEFAULT_OFFSET } from "@/utils/default-offset";
 
 export class PrismaMangasRepository implements MangasRepository {
     async getAllMangasCount() {

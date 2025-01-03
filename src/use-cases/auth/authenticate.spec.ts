@@ -1,9 +1,9 @@
 import { describe } from "node:test";
 import { beforeEach, expect, it } from "vitest";
 import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
-import { AuthenticateUseCase } from "./authenticate";
 import { hash } from "bcryptjs";
-import { InvalidCredentialsError } from "./errors/invalid-credentials-error";
+import { InvalidCredentialsError } from "../errors/invalid-credentials-error";
+import { AuthenticateUseCase } from "./authenticate";
 
 interface AuthenticateUserRequest {
     email: string;
