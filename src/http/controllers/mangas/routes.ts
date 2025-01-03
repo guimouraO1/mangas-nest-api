@@ -4,6 +4,7 @@ import { createManga } from "./create-manga.controller";
 import { getPaginatedMangas } from "./get-paginated-mangas";
 import { verifyJwt } from "@/http/middlewares/verify-jwt";
 import { authorizeAdminOnly } from "@/http/middlewares/verify-admin-role";
+import { getAllMangasCount } from "./get-all-mangas-count.controller";
 
 export async function mangaRoutes(app: FastifyTypedInstance) {
     app.post(
@@ -32,6 +33,16 @@ export async function mangaRoutes(app: FastifyTypedInstance) {
                             )
                         })
                         .describe("Validation errors"),
+                    401: z
+                        .object({
+                            message: z.string()
+                        })
+                        .describe("Unauthorized"),
+                    403: z
+                        .object({
+                            message: z.string()
+                        })
+                        .describe("Forbidden"),
                     500: z
                         .object({
                             message: z.string()
@@ -86,6 +97,11 @@ export async function mangaRoutes(app: FastifyTypedInstance) {
                             )
                         })
                         .describe("Validation errors"),
+                    401: z
+                        .object({
+                            message: z.string()
+                        })
+                        .describe("Unauthorized"),
                     500: z
                         .object({
                             message: z.string()
@@ -95,5 +111,37 @@ export async function mangaRoutes(app: FastifyTypedInstance) {
             }
         },
         getPaginatedMangas
+    );
+
+    app.get(
+        "/manga/count",
+        {
+            onRequest: [verifyJwt],
+            schema: {
+                description: "Get All Mangas Count",
+                tags: ["mangas"],
+                security: [
+                    {
+                        BearerAuth: []
+                    }
+                ],
+                response: {
+                    200: z.object({
+                        mangasCount: z.number().describe("Successfully Get All Mangas Count")
+                    }),
+                    401: z
+                        .object({
+                            message: z.string()
+                        })
+                        .describe("Unauthorized"),
+                    500: z
+                        .object({
+                            message: z.string()
+                        })
+                        .describe("Internal Server Error")
+                }
+            }
+        },
+        getAllMangasCount
     );
 }

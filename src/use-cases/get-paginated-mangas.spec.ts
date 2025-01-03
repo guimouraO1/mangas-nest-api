@@ -6,6 +6,7 @@ import { InMemoryMagasRepository } from "@/repositories/in-memory/in-memory-mang
 interface GetPaginatedMangasUseCaseRequest {
     page: number;
     offset: number;
+    userId: string;
 }
 
 let mangasRepository: InMemoryMagasRepository;
@@ -19,7 +20,8 @@ describe("Get Paginated Mangas use case", () => {
 
         request = {
             page: 1,
-            offset: 4
+            offset: 4,
+            userId: "user_id"
         };
     });
 

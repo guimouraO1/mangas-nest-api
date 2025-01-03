@@ -13,7 +13,7 @@ export async function getPaginatedMangas(request: FastifyRequest, reply: Fastify
     try {
         const getMangaUseCase = makeGetPaginatedMangasUseCase();
 
-        const { mangas } = await getMangaUseCase.execute({ page, offset });
+        const { mangas } = await getMangaUseCase.execute({ page, offset, userId: request.user.sub });
 
         return reply.status(200).send({ mangas });
     } catch (error) {
