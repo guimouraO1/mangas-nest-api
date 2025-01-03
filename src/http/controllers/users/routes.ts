@@ -46,7 +46,7 @@ export async function userRoutes(app: FastifyTypedInstance) {
                                 })
                             )
                         })
-                        .describe("Validation errors"),
+                        .describe("Bad Request"),
                     409: z
                         .object({
                             message: z.string()
@@ -89,7 +89,7 @@ export async function userRoutes(app: FastifyTypedInstance) {
                                 })
                             )
                         })
-                        .describe("Validation errors"),
+                        .describe("Bad Request"),
                     500: z
                         .object({
                             message: z.string()

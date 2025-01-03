@@ -16,6 +16,7 @@ import {
 import { fastifySwagger } from "@fastify/swagger";
 import { fastifySwaggerUi } from "@fastify/swagger-ui";
 import { mangaRoutes } from "./http/controllers/mangas/routes";
+import { subscriptionsRoutes } from "./http/controllers/subscriptions/routes";
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -69,6 +70,7 @@ app.setSerializerCompiler(serializerCompiler);
 
 app.register(userRoutes);
 app.register(mangaRoutes);
+app.register(subscriptionsRoutes);
 
 app.setErrorHandler((error, _request, reply) => {
     if (error instanceof ZodError) {

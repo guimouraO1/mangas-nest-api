@@ -32,7 +32,7 @@ export async function mangaRoutes(app: FastifyTypedInstance) {
                                 })
                             )
                         })
-                        .describe("Validation errors"),
+                        .describe("Bad Request"),
                     401: z
                         .object({
                             message: z.string()
@@ -96,7 +96,7 @@ export async function mangaRoutes(app: FastifyTypedInstance) {
                                 })
                             )
                         })
-                        .describe("Validation errors"),
+                        .describe("Bad Request"),
                     401: z
                         .object({
                             message: z.string()
