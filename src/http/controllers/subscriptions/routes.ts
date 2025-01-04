@@ -31,7 +31,29 @@ export async function subscriptionsRoutes(app: FastifyTypedInstance) {
                                     id: z.string(),
                                     userId: z.string(),
                                     mangaId: z.string(),
-                                    rating: z.number()
+                                    rating: z.number(),
+                                    manga: z
+                                        .object({
+                                            id: z.string(),
+                                            name: z.string(),
+                                            date: z.string(),
+                                            url: z.string(),
+                                            about: z.string().nullable(),
+                                            createdAt: z.date(),
+                                            updatedAt: z.date()
+                                        })
+                                        .optional()
+                                        .nullable(),
+                                    chapters: z
+                                        .array(
+                                            z.object({
+                                                id: z.string(),
+                                                subscriptionId: z.string(),
+                                                number: z.number()
+                                            })
+                                        )
+                                        .optional()
+                                        .nullable()
                                 })
                             )
                         })
