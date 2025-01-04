@@ -13,7 +13,7 @@ export async function createChapter(request: FastifyRequest, reply: FastifyReply
     try {
         const createChapterUseCase = makeCreateChapterUseCase();
 
-        await createChapterUseCase.execute({ subscriptionId, number });
+        await createChapterUseCase.execute({ subscriptionId, number, userId: request.user.sub });
 
         return reply.status(201).send({});
     } catch (error) {

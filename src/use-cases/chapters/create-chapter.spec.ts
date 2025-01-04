@@ -5,6 +5,7 @@ import { InMemoryChaptersRepository } from "@/repositories/in-memory/in-memory-c
 import { CreateChapterUseCase } from "./create-chapter";
 import { InMemoryMangasRepository } from "@/repositories/in-memory/in-memory-mangas-repository";
 import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { ForbiddenError } from "../errors/forbidden-error";
 
 let subscriptionsRepository: InMemorySubscriptionsRepository;
 let chapterRepository: InMemoryChaptersRepository;
@@ -36,13 +37,33 @@ describe("Create Chapter use case", () => {
             rating: 5
         });
 
-        const { chapter } = await sut.execute({ subscriptionId: subscription.id, number: 1 });
+        const { chapter } = await sut.execute({ subscriptionId: subscription.id, number: 1, userId: "user_id" });
 
         expect(chapter.number).equal(1);
         expect(chapter.subscriptionId).equal(subscription.id);
     });
 
+    it("should not be able to create a chapter if you are not the owner of the subscription", async () => {
+        mangasRepository.mangas.push({
+            id: "manga_id",
+            name: "Sousou no Frieren",
+            about: "A test manga",
+            date: "fri",
+            url: "https://example.com/manga",
+            createdAt: new Date(),
+            updatedAt: new Date()
+        });
+
+        const subscription = await subscriptionsRepository.subscribe({
+            mangaId: "manga_id",
+            userId: "user_id",
+            rating: 5
+        });
+
+        await expect(sut.execute({ subscriptionId: subscription.id, number: 1, userId: "user_is_not_the_owner" })).rejects.toThrow(ForbiddenError);
+    });
+
     it("should not be able to create a chapter when subscriptionId does not exist", async () => {
-        await expect(sut.execute({ subscriptionId: "subscriptionId_dont_exists", number: 1 })).rejects.toThrow(ResourceNotFoundError);
+        await expect(sut.execute({ subscriptionId: "subscriptionId_dont_exists", number: 1, userId: "user_id" })).rejects.toThrow(ResourceNotFoundError);
     });
 });
