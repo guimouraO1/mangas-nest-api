@@ -5,4 +5,5 @@ export interface SubscriptionsRepository {
     unsubscribe({ subscriptionId }: { subscriptionId: string }): Promise<Subscription>;
     getPaginatedSubscriptions({ page, offset, userId }: { page: number; offset: number; userId: string }): Promise<Subscription[]>;
     getUserSubscriptionsCount({ userId }: { userId: string }): Promise<number>;
+    getSubscriptionById({ subscriptionId }: { subscriptionId: string }): Promise<Subscription | null>;
 }

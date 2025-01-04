@@ -2,34 +2,49 @@ import { describe } from "node:test";
 import { beforeEach, expect, it } from "vitest";
 import { InMemorySubscriptionsRepository } from "@/repositories/in-memory/in-memory-subscriptions-repository";
 import { SubscribeMangaUseCase } from "./subscribe-manga";
-
-interface SubscribeMangaUseCaseRequest {
-    mangaId: string;
-    userId: string;
-    rating: number;
-}
+import { InMemoryMangasRepository } from "@/repositories/in-memory/in-memory-mangas-repository";
+import { ResourceNotFoundError } from "../errors/resource-not-found-error";
 
 let subscriptionsRepository: InMemorySubscriptionsRepository;
+let mangasRepository: InMemoryMangasRepository;
 let sut: SubscribeMangaUseCase;
-let request: SubscribeMangaUseCaseRequest;
 
 describe("Subscribe manga use case", () => {
     beforeEach(() => {
         subscriptionsRepository = new InMemorySubscriptionsRepository();
-        sut = new SubscribeMangaUseCase(subscriptionsRepository);
-
-        request = {
-            mangaId: "manga_id",
-            userId: "user_id",
-            rating: 5
-        };
+        mangasRepository = new InMemoryMangasRepository();
+        sut = new SubscribeMangaUseCase(subscriptionsRepository, mangasRepository);
     });
 
     it("should be able to subscribe to a manga", async () => {
-        const subscription = await sut.execute(request);
+        mangasRepository.mangas.push({
+            id: "manga_id",
+            name: "Sousou no Frieren",
+            about: "A test manga",
+            date: "fri",
+            url: "https://example.com/manga",
+            createdAt: new Date(),
+            updatedAt: new Date()
+        });
+
+        const subscription = await sut.execute({
+            mangaId: "manga_id",
+            userId: "user_id",
+            rating: 5
+        });
 
         expect(subscription.userId).equal("user_id");
         expect(subscription.mangaId).equal("manga_id");
         expect(subscription.rating).equal(5);
+    });
+
+    it("should not be able to subscribe to a manga when manga does not exist", async () => {
+        await expect(
+            sut.execute({
+                mangaId: "manga_id_does_not_exist",
+                userId: "user_id",
+                rating: 5
+            })
+        ).rejects.toThrow(ResourceNotFoundError);
     });
 });

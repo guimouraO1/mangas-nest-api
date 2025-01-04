@@ -4,6 +4,11 @@ import { SubscriptionsRepository } from "../subscriptions-repository";
 export class InMemorySubscriptionsRepository implements SubscriptionsRepository {
     public subscriptions: Subscription[] = [];
 
+    async getSubscriptionById({ subscriptionId }: { subscriptionId: string }) {
+        const subscription = this.subscriptions.find((subscription) => subscription.id === subscriptionId);
+        return subscription || null;
+    }
+
     async subscribe(data: { userId: string; mangaId: string; rating: number }) {
         const subscription = {
             id: crypto.randomUUID(),

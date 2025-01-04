@@ -1,6 +1,6 @@
 import { describe } from "node:test";
 import { beforeEach, expect, it } from "vitest";
-import { InMemoryMagasRepository } from "@/repositories/in-memory/in-memory-mangas-repository";
+import { InMemoryMangasRepository } from "@/repositories/in-memory/in-memory-mangas-repository";
 import { CreateMangaUseCase } from "./create-manga";
 import { WeekDay } from "@prisma/client";
 
@@ -10,13 +10,13 @@ interface CreateMangaUseCaseRequest {
     date: WeekDay;
 }
 
-let mangasRepository: InMemoryMagasRepository;
+let mangasRepository: InMemoryMangasRepository;
 let sut: CreateMangaUseCase;
 let request: CreateMangaUseCaseRequest;
 
 describe("Create Manga use case", () => {
     beforeEach(() => {
-        mangasRepository = new InMemoryMagasRepository();
+        mangasRepository = new InMemoryMangasRepository();
         sut = new CreateMangaUseCase(mangasRepository);
 
         request = {

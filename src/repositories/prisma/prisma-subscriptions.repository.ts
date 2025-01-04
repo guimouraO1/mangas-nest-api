@@ -4,6 +4,13 @@ import { SubscriptionsRepository } from "../subscriptions-repository";
 import { LAST_CHAPTERS_OFFSEET } from "@/utils/default-offset-chapters";
 
 export class PrismaSubscriptionsRepository implements SubscriptionsRepository {
+    
+    async getSubscriptionById({ subscriptionId }: { subscriptionId: string; }) {
+        const subscription = await prisma.subscription.findUnique({ where: {id: subscriptionId} });
+
+        return subscription;
+    }
+
     async unsubscribe({ subscriptionId }: { subscriptionId: string; }) {
         const unsubscribe = await prisma.subscription.delete({ where: {id: subscriptionId} });
 

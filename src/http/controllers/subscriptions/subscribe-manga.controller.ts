@@ -5,7 +5,7 @@ import { z } from "zod";
 export async function subscribeManga(request: FastifyRequest, reply: FastifyReply) {
     const subscribeMangaBodySchema = z.object({
         mangaId: z.string(),
-        rating: z.string().transform(Number)
+        rating: z.number()
     });
 
     const { mangaId, rating } = subscribeMangaBodySchema.parse(request.body);
@@ -13,9 +13,9 @@ export async function subscribeManga(request: FastifyRequest, reply: FastifyRepl
     try {
         const subscribeMangaUseCase = makeSubscribeMangaUseCase();
 
-        const subscription = await subscribeMangaUseCase.execute({ userId: request.user.sub, mangaId, rating });
+        await subscribeMangaUseCase.execute({ userId: request.user.sub, mangaId, rating });
 
-        return reply.status(200).send({ subscription });
+        return reply.status(200).send({});
     } catch (error) {
         throw new Error("");
     }

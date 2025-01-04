@@ -1,14 +1,14 @@
 import { describe } from "node:test";
 import { beforeEach, expect, it } from "vitest";
-import { InMemoryMagasRepository } from "@/repositories/in-memory/in-memory-mangas-repository";
+import { InMemoryMangasRepository } from "@/repositories/in-memory/in-memory-mangas-repository";
 import { GetAllMangasCountUseCase } from "./get-all-mangas-count";
 
-let mangasRepository: InMemoryMagasRepository;
+let mangasRepository: InMemoryMangasRepository;
 let sut: GetAllMangasCountUseCase;
 
 describe("Get all Mangas count use case", () => {
     beforeEach(() => {
-        mangasRepository = new InMemoryMagasRepository();
+        mangasRepository = new InMemoryMangasRepository();
         sut = new GetAllMangasCountUseCase(mangasRepository);
     });
 

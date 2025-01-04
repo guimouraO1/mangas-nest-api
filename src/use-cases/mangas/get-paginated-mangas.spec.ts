@@ -1,7 +1,7 @@
 import { describe } from "node:test";
 import { beforeEach, expect, it } from "vitest";
 import { GetPaginatedMangasUseCase } from "./get-paginated-mangas";
-import { InMemoryMagasRepository } from "@/repositories/in-memory/in-memory-mangas-repository";
+import { InMemoryMangasRepository } from "@/repositories/in-memory/in-memory-mangas-repository";
 
 interface GetPaginatedMangasUseCaseRequest {
     page: number;
@@ -9,13 +9,13 @@ interface GetPaginatedMangasUseCaseRequest {
     userId: string;
 }
 
-let mangasRepository: InMemoryMagasRepository;
+let mangasRepository: InMemoryMangasRepository;
 let sut: GetPaginatedMangasUseCase;
 let request: GetPaginatedMangasUseCaseRequest;
 
 describe("Get Paginated Mangas use case", () => {
     beforeEach(() => {
-        mangasRepository = new InMemoryMagasRepository();
+        mangasRepository = new InMemoryMangasRepository();
         sut = new GetPaginatedMangasUseCase(mangasRepository);
 
         request = {

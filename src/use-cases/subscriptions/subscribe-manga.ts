@@ -1,4 +1,6 @@
+import { MangasRepository } from "@/repositories/mangas-repository";
 import { SubscriptionsRepository } from "@/repositories/subscriptions-repository";
+import { ResourceNotFoundError } from "../errors/resource-not-found-error";
 
 interface SubscribeMangaUseCaseRequest {
     userId: string;
@@ -14,9 +16,18 @@ interface SubscribeMangaUseCaseResponse {
 }
 
 export class SubscribeMangaUseCase {
-    constructor(private subscriptionsRepository: SubscriptionsRepository) {}
+    constructor(
+        private subscriptionsRepository: SubscriptionsRepository,
+        private mangasRepository: MangasRepository
+    ) {}
 
     async execute({ userId, mangaId, rating }: SubscribeMangaUseCaseRequest): Promise<SubscribeMangaUseCaseResponse> {
+        const mangasExists = await this.mangasRepository.getMangaById({ mangaId });
+
+        if (!mangasExists) {
+            throw new ResourceNotFoundError();
+        }
+
         const subscription = await this.subscriptionsRepository.subscribe({ userId, mangaId, rating });
 
         return subscription;

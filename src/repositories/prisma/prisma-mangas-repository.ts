@@ -1,8 +1,16 @@
 import { prisma } from "@/lib/prisma";
-import { Prisma } from "@prisma/client";
+import { Manga, Prisma } from "@prisma/client";
 import { MangasRepository } from "../mangas-repository";
 
 export class PrismaMangasRepository implements MangasRepository {
+    async getMangaById({ mangaId }: { mangaId: string; }) {
+        const manga = await prisma.manga.findUnique({
+            where: { id: mangaId }
+        })
+
+        return manga;
+    }
+
     async getAllMangasCount() {
         const mangasCount = await prisma.manga.count();
 
