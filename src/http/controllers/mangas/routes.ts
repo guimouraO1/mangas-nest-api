@@ -5,6 +5,7 @@ import { getPaginatedMangas } from "./get-paginated-mangas";
 import { verifyJwt } from "@/http/middlewares/verify-jwt";
 import { authorizeAdminOnly } from "@/http/middlewares/verify-admin-role";
 import { getAllMangasCount } from "./get-all-mangas-count.controller";
+import { uploadMangaImage } from "./upload-manga-image";
 
 export async function mangaRoutes(app: FastifyTypedInstance) {
     app.post(
@@ -143,5 +144,44 @@ export async function mangaRoutes(app: FastifyTypedInstance) {
             }
         },
         getAllMangasCount
+    );
+
+    app.get(
+        "/manga/upload/image",
+        {
+            onRequest: [verifyJwt, authorizeAdminOnly],
+            schema: {
+                description: "Get presigned Url",
+                tags: ["mangas"],
+                security: [
+                    {
+                        BearerAuth: []
+                    }
+                ],
+                querystring: z.object({
+                    fileType: z.string()
+                }),
+                response: {
+                    200: z
+                        .object({
+                            signedUrl: z.string(),
+                            fileExtension: z.string(),
+                            key: z.string()
+                        })
+                        .describe("Successfully Get presigned urls"),
+                    401: z
+                        .object({
+                            message: z.string()
+                        })
+                        .describe("Unauthorized"),
+                    500: z
+                        .object({
+                            message: z.string()
+                        })
+                        .describe("Internal Server Error")
+                }
+            }
+        },
+        uploadMangaImage
     );
 }
