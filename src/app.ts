@@ -39,7 +39,7 @@ app.register(fastifyJwt, {
 app.register(fastifyCookie);
 
 app.register(fastifyCors, {
-    origin: "*",
+    origin: true,
     credentials: true
 });
 
