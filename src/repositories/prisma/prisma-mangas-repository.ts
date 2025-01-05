@@ -29,9 +29,10 @@ export class PrismaMangasRepository implements MangasRepository {
         const mangas = await prisma.manga.findMany({
             include: {
                 subscriptions: {
-                    where: {
-                        userId
-                    }
+                    where: { userId },
+                    select: { 
+                        id: true 
+                    },
                 },
             },
             skip,

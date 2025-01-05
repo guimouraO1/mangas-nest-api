@@ -81,7 +81,12 @@ export async function mangaRoutes(app: FastifyTypedInstance) {
                                     url: z.string(),
                                     about: z.string().nullable(),
                                     createdAt: z.date(),
-                                    updatedAt: z.date()
+                                    updatedAt: z.date(),
+                                    subscriptions: z.array(
+                                        z.object({
+                                            id: z.string()
+                                        })
+                                    )
                                 })
                             )
                             .describe("Successfully Get Paginated Mangas")
