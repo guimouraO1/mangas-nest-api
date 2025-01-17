@@ -7,9 +7,10 @@ import { PutObjectCommand } from "@aws-sdk/client-s3";
 import { env } from "@/env";
 
 export async function uploadMangaImage(request: FastifyRequest, reply: FastifyReply) {
-    const schema = z.object({ fileType: z.enum(["png", "jpeg", "jpg"]) });
+    const schema = z.object({ fileType: z.enum(["image/png", "image/jpeg", "image/jpg"]) });
 
-    const { fileType } = schema.parse(request.query);
+    let { fileType } = schema.parse(request.query);
+    fileType = fileType.replace("image/", "") as "image/png" | "image/jpeg" | "image/jpg";
 
     const key = `${ulid()}.${fileType}`;
 
