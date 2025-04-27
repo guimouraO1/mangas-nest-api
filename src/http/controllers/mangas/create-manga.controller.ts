@@ -1,20 +1,13 @@
-import { z } from 'zod';
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { makeCreateMangaUseCase } from 'src/use-cases/_factories/make-create-manga-use-case';
+import { CreateMangaType } from 'src/utils/validators/mangas/create-manga-schema';
 
 export async function createManga(request: FastifyRequest, reply: FastifyReply) {
-    const createMangaBodySchema = z.object({
-        name: z.string().max(60),
-        url: z.string().url(),
-        date: z.enum(['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'])
-    });
-
-    const { name, url, date } = createMangaBodySchema.parse(request.body);
+    const data = request.body as CreateMangaType;
 
     try {
         const createMangaUseCase = makeCreateMangaUseCase();
-
-        await createMangaUseCase.execute({ name, date, url });
+        await createMangaUseCase.execute(data);
 
         return reply.status(201).send({});
     } catch (error) {

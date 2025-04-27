@@ -1,44 +1,28 @@
 import { prisma } from 'src/lib/prisma';
-import { Manga, Prisma } from '@prisma/client';
 import { MangasRepository } from '../mangas-repository';
+import { CreateMangaType } from 'src/utils/validators/mangas/create-manga-schema';
+import { GetPaginatedMangas } from 'src/utils/validators/mangas/get-manga-schema';
 
 export class PrismaMangasRepository implements MangasRepository {
-    async getMangaById({ mangaId }: { mangaId: string; }) {
-        const manga = await prisma.manga.findUnique({
-            where: { id: mangaId }
-        });
-
+    async getMangaById(id: string) {
+        const manga = await prisma.manga.findUnique({ where: { id } });
         return manga;
     }
 
-    async getAllMangasCount() {
-        const mangasCount = await prisma.manga.count();
-
-        return mangasCount;
-    }
-
-    async create(data: Prisma.MangaCreateInput) {
+    async create(data: CreateMangaType) {
         const manga = await prisma.manga.create({ data });
-
         return manga;
     }
 
-    async getPaginatedMangas({ page, offset, userId }: { page: number; offset: number; userId: string; }) {
+    async getPaginatedMangas({ page, offset }: GetPaginatedMangas) {
         const skip = (page - 1) * offset;
 
         const mangas = await prisma.manga.findMany({
-            include: {
-                subscriptions: {
-                    where: { userId },
-                    select: {
-                        id: true
-                    }
-                }
-            },
             skip,
             take: offset
         });
 
-        return mangas;
+        const mangasCount = await prisma.manga.count();
+        return { mangas, mangasCount };
     }
 }

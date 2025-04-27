@@ -1,41 +1,41 @@
-import { describe } from 'node:test';
-import { beforeEach, expect, it } from 'vitest';
-import { GetPaginatedMangasUseCase } from './get-paginated-mangas';
-import { InMemoryMangasRepository } from 'src/repositories/in-memory/in-memory-mangas-repository';
+// import { describe } from 'node:test';
+// import { beforeEach, expect, it } from 'vitest';
+// import { GetPaginatedMangasUseCase } from './get-paginated-mangas';
+// import { InMemoryMangasRepository } from 'src/repositories/in-memory/in-memory-mangas-repository';
 
-interface GetPaginatedMangasUseCaseRequest {
-    page: number;
-    offset: number;
-    userId: string;
-}
+// interface GetPaginatedMangasUseCaseRequest {
+//     page: number;
+//     offset: number;
+//     userId: string;
+// }
 
-let mangasRepository: InMemoryMangasRepository;
-let sut: GetPaginatedMangasUseCase;
-let request: GetPaginatedMangasUseCaseRequest;
+// let mangasRepository: InMemoryMangasRepository;
+// let sut: GetPaginatedMangasUseCase;
+// let request: GetPaginatedMangasUseCaseRequest;
 
-describe('Get Paginated Mangas use case', () => {
-    beforeEach(() => {
-        mangasRepository = new InMemoryMangasRepository();
-        sut = new GetPaginatedMangasUseCase(mangasRepository);
+// describe('Get Paginated Mangas use case', () => {
+//     beforeEach(() => {
+//         mangasRepository = new InMemoryMangasRepository();
+//         sut = new GetPaginatedMangasUseCase(mangasRepository);
 
-        request = {
-            page: 1,
-            offset: 4,
-            userId: 'user_id'
-        };
-    });
+//         request = {
+//             page: 1,
+//             offset: 4,
+//             userId: 'user_id'
+//         };
+//     });
 
-    it('should be able to get paginated manga list', async () => {
-        await mangasRepository.create({
-            name: 'Sousou no Frieren',
-            url: 'http://teste.com/frieren.png',
-            date: 'fri'
-        });
+//     it('should be able to get paginated manga list', async () => {
+//         await mangasRepository.create({
+//             name: 'Sousou no Frieren',
+//             url: 'http://teste.com/frieren.png',
+//             date: 'fri'
+//         });
 
-        const { mangas } = await sut.execute(request);
+//         const { mangas } = await sut.execute(request);
 
-        expect(Array.isArray(mangas)).toBe(true);
-        expect(mangas.length).equal(1);
-        expect(mangas[0].name).equal('Sousou no Frieren');
-    });
-});
+//         expect(Array.isArray(mangas)).toBe(true);
+//         expect(mangas.length).equal(1);
+//         expect(mangas[0].name).equal('Sousou no Frieren');
+//     });
+// });

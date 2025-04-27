@@ -1,28 +1,27 @@
-import { Manga, Prisma } from '@prisma/client';
-import { MangasRepository } from '../mangas-repository';
+import { CreateMangaType } from 'src/utils/validators/mangas/create-manga-schema';
+import { Manga, MangasRepository } from '../mangas-repository';
 
 export class InMemoryMangasRepository implements MangasRepository {
     public mangas: Manga[] = [];
 
-    async getAllMangasCount() {
-        return this.mangas.length;
-    }
-
-    async getMangaById({ mangaId }: { mangaId: string }) {
-        return this.mangas.find((manga) => manga.id === mangaId) || null;
+    async getMangaById(id: string) {
+        return this.mangas.find((manga) => manga.id === id) || null;
     }
 
     async getPaginatedMangas({ page, offset }: { page: number; offset: number }) {
-        return this.mangas.slice((page - 1) * offset, page * offset);
+        const mangas = this.mangas.slice((page - 1) * offset, page * offset);
+        const mangasCount = this.mangas.length;
+
+        return { mangas, mangasCount };
     }
 
-    async create(data: Prisma.MangaCreateInput) {
+    async create(data: CreateMangaType) {
         const manga = {
             id: crypto.randomUUID(),
             name: data.name,
             url: data.url,
             date: data.date,
-            about: data.about || null,
+            about: data.about || '',
             createdAt: new Date(),
             updatedAt: new Date()
         };

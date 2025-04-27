@@ -1,26 +1,11 @@
-import { Manga, WeekDay } from '@prisma/client';
 import { MangasRepository } from 'src/repositories/mangas-repository';
-
-interface CreateMangaUseCaseRequest {
-    name: string;
-    url: string;
-    date: WeekDay;
-}
-
-interface CreateMangaUseCaseResponse {
-    manga: Manga;
-}
+import { CreateMangaType } from 'src/utils/validators/mangas/create-manga-schema';
 
 export class CreateMangaUseCase {
     constructor(private mangasRepository: MangasRepository) {}
 
-    async execute({ name, date, url }: CreateMangaUseCaseRequest): Promise<CreateMangaUseCaseResponse> {
-        const manga = await this.mangasRepository.create({
-            name,
-            date,
-            url
-        });
-
-        return { manga };
+    async execute(data: CreateMangaType) {
+        const manga = await this.mangasRepository.create(data);
+        return manga;
     }
 }

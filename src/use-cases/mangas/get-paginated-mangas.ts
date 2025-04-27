@@ -1,26 +1,11 @@
-import { Manga } from '@prisma/client';
 import { MangasRepository } from 'src/repositories/mangas-repository';
-
-interface GetPaginatedMangasUseCaseRequest {
-    page: number;
-    offset: number;
-    userId: string;
-}
-
-interface GetPaginatedMangasUseCaseResponse {
-    mangas: Manga[];
-}
+import { GetPaginatedMangas } from 'src/utils/validators/mangas/get-manga-schema';
 
 export class GetPaginatedMangasUseCase {
     constructor(private mangasRepository: MangasRepository) {}
 
-    async execute({ page, offset, userId }: GetPaginatedMangasUseCaseRequest): Promise<GetPaginatedMangasUseCaseResponse> {
-        const mangas = await this.mangasRepository.getPaginatedMangas({
-            page,
-            offset,
-            userId
-        });
-
-        return { mangas };
+    async execute({ page, offset }: GetPaginatedMangas) {
+        const mangas = await this.mangasRepository.getPaginatedMangas({ page, offset });
+        return mangas;
     }
 }
