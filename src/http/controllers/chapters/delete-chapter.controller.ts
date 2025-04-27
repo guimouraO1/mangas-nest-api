@@ -9,7 +9,7 @@ export async function deleteChapter(request: FastifyRequest, reply: FastifyReply
 
     try {
         const deleteChapterUseCase = makeDeleteChapterUseCase();
-        await deleteChapterUseCase.execute({ subscriptionId, number });
+        await deleteChapterUseCase.execute({ subscriptionId, number: +number });
 
         return reply.status(200).send({});
     } catch (error) {

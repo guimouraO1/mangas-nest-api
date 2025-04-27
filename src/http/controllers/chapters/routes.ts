@@ -11,7 +11,7 @@ import { NotFoundSchema } from 'src/utils/validators/errors/not-found-schema';
 import { UnauthorizedSchema } from 'src/utils/validators/errors/unauthorized-schema';
 import { authorizeOwnerOrAdminBody } from 'src/http/middlewares/authorize-owner-or-admin-body';
 import { authorizeOwnerOrAdminParams } from 'src/http/middlewares/authorize-owner-or-admin-params';
-import { DeleteChapterRequestBodyZod } from 'src/utils/validators/chapters/delete-chapter-schema';
+import { DeleteChapterRequestBodyZodNumber } from 'src/utils/validators/chapters/delete-chapter-schema';
 import { ConflictSchema } from 'src/utils/validators/errors/conflict-schema';
 
 export async function chapterRoutes(app: FastifyTypedInstance) {
@@ -44,7 +44,7 @@ export async function chapterRoutes(app: FastifyTypedInstance) {
                 description: 'Delete chapter',
                 tags: ['chapters'],
                 security: [{ BearerAuth: [] }],
-                params: DeleteChapterRequestBodyZod,
+                params: DeleteChapterRequestBodyZodNumber,
                 response: {
                     200: CreatedSchema.describe('Chapter deleted successfully'),
                     400: BadRequestSchema,
