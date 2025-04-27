@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { makeGetPaginatedMangasUseCase } from 'src/use-cases/factories/make-get-paginated-mangas';
+import { makeGetPaginatedMangasUseCase } from 'src/use-cases/_factories/make-get-paginated-mangas';
 
 export async function getPaginatedMangas(request: FastifyRequest, reply: FastifyReply) {
     const getPaginatedMangasSchema = z.object({

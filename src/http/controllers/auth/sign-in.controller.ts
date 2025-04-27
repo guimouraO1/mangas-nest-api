@@ -1,7 +1,8 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { env } from 'src/lib/env';
-import { InvalidCredentialsError } from 'src/use-cases/errors/invalid-credentials-error';
-import { makeAuthenticateUseCase } from 'src/use-cases/factories/make-authenticate-use-case';
+import { InvalidPasswordError } from 'src/utils/errors/invalid-password-error';
+import { UserNotFound } from 'src/utils/errors/user-not-found';
+import { makeAuthenticateUseCase } from 'src/use-cases/_factories/make-authenticate-use-case';
 import { AuthenticateRequestBody } from 'src/utils/validators/auth/sign-in.schema';
 
 export async function signIn(request: FastifyRequest, reply: FastifyReply) {
@@ -23,7 +24,11 @@ export async function signIn(request: FastifyRequest, reply: FastifyReply) {
         }).status(200).send({ token });
 
     } catch (error) {
-        if (error instanceof InvalidCredentialsError) {
+        if (error instanceof UserNotFound) {
+            return reply.status(404).send({ message: error.message });
+        }
+
+        if (error instanceof InvalidPasswordError) {
             return reply.status(401).send({ message: error.message });
         }
 

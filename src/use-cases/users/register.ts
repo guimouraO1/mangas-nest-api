@@ -1,37 +1,24 @@
 import { hash } from 'bcryptjs';
-import { UserAlreadyExistsError } from '../errors/user-already-exists-error';
-import { User } from '@prisma/client';
 import { UsersRepository } from 'src/repositories/users-repository';
-
-interface RegisterUseCaseRequest {
-    name: string;
-    email: string;
-    password: string;
-    username: string;
-}
-
-interface RegisterUseCaseResponse {
-    user: User;
-}
+import { CreateUserRequestSchemaType } from 'src/utils/validators/user/create-user-schema';
+import { UsernameAlreadyRegistredError } from '../../utils/errors/username-already-registred-error';
+import { EmailAlreadyRegistredError } from '../../utils/errors/email-already-registred-error';
 
 export class RegisterUseCase {
     constructor(private usersRepository: UsersRepository) {}
 
-    async execute({ name, email, password, username }: RegisterUseCaseRequest): Promise<RegisterUseCaseResponse> {
+    async execute({ name, email, password, username }: CreateUserRequestSchemaType) {
+        const emailAlreadyRegistred = await this.usersRepository.findByEmail(email);
+        if (emailAlreadyRegistred) {
+            throw new EmailAlreadyRegistredError();
+        }
+
+        const usernameAlreadyRegistred = await this.usersRepository.findByUsername(username);
+        if (usernameAlreadyRegistred) {
+            throw new UsernameAlreadyRegistredError();
+        }
+
         const password_hash = await hash(password, 6);
-
-        const userWithSameEmail = await this.usersRepository.findByEmail(email);
-
-        if (userWithSameEmail) {
-            throw new UserAlreadyExistsError();
-        }
-
-        const userWithSameUsername = await this.usersRepository.findByUsername(username);
-
-        if (userWithSameUsername) {
-            throw new UserAlreadyExistsError();
-        }
-
         const user = await this.usersRepository.create({
             name,
             email,
@@ -39,6 +26,6 @@ export class RegisterUseCase {
             username
         });
 
-        return { user };
+        return user;
     }
 }

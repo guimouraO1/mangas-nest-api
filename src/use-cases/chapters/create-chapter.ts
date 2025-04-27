@@ -1,8 +1,8 @@
 import { ChaptersRepository } from 'src/repositories/chapters-repository';
 import { SubscriptionsRepository } from 'src/repositories/subscriptions-repository';
 import { CreateChapterRequestBody } from 'src/utils/validators/chapters/create-chapter-schema';
-import { SubscriptionNotFoundError } from '../errors/subscription-not-fount-error';
-import { ChapterAlreadyExistsError } from '../errors/chapter-already-exists-error';
+import { SubscriptionNotFoundError } from '../../utils/errors/subscription-not-fount-error';
+import { ChapterAlreadyExistsError } from '../../utils/errors/chapter-already-exists-error';
 
 export class CreateChapterUseCase {
     constructor(private chaptersRepository: ChaptersRepository, private subscriptionsRepository: SubscriptionsRepository) {}

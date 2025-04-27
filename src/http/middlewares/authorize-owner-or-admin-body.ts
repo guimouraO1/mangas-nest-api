@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { MakeGetSubscriptionByIdUseCase } from 'src/use-cases/factories/make-get-subscription-by-id-use-case';
+import { MakeGetSubscriptionByIdUseCase } from 'src/use-cases/_factories/make-get-subscription-by-id-use-case';
 
 export async function authorizeOwnerOrAdminBody(request: FastifyRequest, reply: FastifyReply) {
     const data = request.body as { subscriptionId: string };

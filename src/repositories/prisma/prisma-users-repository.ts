@@ -1,30 +1,31 @@
 import { prisma } from 'src/lib/prisma';
-import { Prisma, User } from '@prisma/client';
 import { UsersRepository } from '../users-repository';
+import { CreateUserRequestSchemaPasswordHash } from 'src/utils/validators/user/create-user-schema';
 
 export class PrismaUsersRepository implements UsersRepository {
-
-    async findByUsername(username: string): Promise<User | null> {
+    async findByUsername(username: string) {
         const user = await prisma.user.findUnique({ where: { username } });
-
         return user;
     }
 
-    async findById(id: string): Promise<User | null> {
+    async findById(id: string) {
         const user = await prisma.user.findUnique({ where: { id } });
-
         return user;
     }
 
-    async findByEmail(email: string): Promise<User | null> {
+    async findByEmail(email: string) {
         const user = await prisma.user.findUnique({ where: { email } });
-
         return user;
     }
 
-    async create(data: Prisma.UserCreateInput) {
+    async create(data: CreateUserRequestSchemaPasswordHash) {
         const user = await prisma.user.create({
-            data
+            data: {
+                email: data.email,
+                name: data.name,
+                password_hash: data.password_hash,
+                username: data.username
+            }
         });
 
         return user;

@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { makeSubscribeMangaUseCase } from 'src/use-cases/factories/make-subscribe-manga';
+import { makeSubscribeMangaUseCase } from 'src/use-cases/_factories/make-subscribe-manga';
 import { z } from 'zod';
 
 export async function subscribeManga(request: FastifyRequest, reply: FastifyReply) {

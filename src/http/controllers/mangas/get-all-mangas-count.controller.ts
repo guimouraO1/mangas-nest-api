@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { makeGetAllMangasCountUseCase } from 'src/use-cases/factories/make-get-all-mangas-count';
+import { makeGetAllMangasCountUseCase } from 'src/use-cases/_factories/make-get-all-mangas-count';
 
 export async function getAllMangasCount(request: FastifyRequest, reply: FastifyReply) {
     try {

@@ -1,7 +1,7 @@
 import { describe } from 'node:test';
 import { beforeEach, expect, it } from 'vitest';
 import { UnsubscribeMangaUseCase } from './unsubscribe-manga';
-import { ForbiddenError } from '../errors/forbidden-error';
+import { ForbiddenError } from '../../utils/errors/forbidden-error';
 import { InMemorySubscriptionsRepository } from 'src/repositories/in-memory/in-memory-subscriptions-repository';
 
 let subscriptionsRepository: InMemorySubscriptionsRepository;

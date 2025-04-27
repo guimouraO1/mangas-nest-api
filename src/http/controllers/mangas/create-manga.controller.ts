@@ -1,6 +1,6 @@
 import { z } from 'zod';
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { makeCreateMangaUseCase } from 'src/use-cases/factories/make-create-manga-use-case';
+import { makeCreateMangaUseCase } from 'src/use-cases/_factories/make-create-manga-use-case';
 
 export async function createManga(request: FastifyRequest, reply: FastifyReply) {
     const createMangaBodySchema = z.object({

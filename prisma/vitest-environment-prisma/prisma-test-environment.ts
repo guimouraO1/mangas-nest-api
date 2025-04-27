@@ -17,6 +17,7 @@ function generateDatabaseURL(schema: string) {
 
     return url.toString();
 }
+
 export default <Environment>{
     name: 'custom',
     transformMode: 'ssr',

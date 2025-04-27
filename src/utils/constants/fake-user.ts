@@ -11,6 +11,11 @@ export const FAKE_USER: User = {
     role: 'user'
 };
 
+export const FAKE_USER_SIGN_IN = {
+    email: 'user@email.com',
+    password: 'admin123'
+};
+
 export const FAKE_ADMIN: User = {
     name: 'admin',
     id: 'admin_id',
@@ -20,4 +25,9 @@ export const FAKE_ADMIN: User = {
     createdAt: new Date(),
     updatedAt: new Date(),
     role: 'admin'
+};
+
+export const FAKE_ADMIN_SIGN_IN = {
+    email: 'admin@email.com',
+    password: 'admin123'
 };

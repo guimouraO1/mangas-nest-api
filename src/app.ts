@@ -16,7 +16,7 @@ import { chapterRoutes } from './http/controllers/chapters/routes';
 import { jwtConfig } from './utils/constants/jwt-config';
 import { errorHandler } from './utils/error-handler';
 import { authRoutes } from './http/controllers/auth/routes';
-import { fastifySwaggerConfig } from './utils/constants/teste';
+import { fastifySwaggerConfig } from './utils/constants/fastify-swagger-config';
 import { env } from './lib/env';
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();

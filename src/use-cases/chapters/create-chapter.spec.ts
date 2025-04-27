@@ -6,8 +6,8 @@ import { InMemorySubscriptionsRepository } from 'src/repositories/in-memory/in-m
 import { FAKE_MANGA } from 'src/utils/constants/fake-manga';
 import { Manga, User } from '@prisma/client';
 import { FAKE_USER } from 'src/utils/constants/fake-user';
-import { SubscriptionNotFoundError } from '../errors/subscription-not-fount-error';
-import { ChapterAlreadyExistsError } from '../errors/chapter-already-exists-error';
+import { SubscriptionNotFoundError } from '../../utils/errors/subscription-not-fount-error';
+import { ChapterAlreadyExistsError } from '../../utils/errors/chapter-already-exists-error';
 
 let subscriptionsRepository: InMemorySubscriptionsRepository;
 let chapterRepository: InMemoryChaptersRepository;

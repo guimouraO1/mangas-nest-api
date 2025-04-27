@@ -1,7 +1,7 @@
 import { describe } from 'node:test';
 import { beforeEach, expect, it } from 'vitest';
 import { SubscribeMangaUseCase } from './subscribe-manga';
-import { ResourceNotFoundError } from '../errors/resource-not-found-error';
+import { ResourceNotFoundError } from '../../utils/errors/resource-not-found-error';
 import { InMemoryMangasRepository } from 'src/repositories/in-memory/in-memory-mangas-repository';
 import { InMemorySubscriptionsRepository } from 'src/repositories/in-memory/in-memory-subscriptions-repository';
 

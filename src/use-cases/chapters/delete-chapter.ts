@@ -1,8 +1,8 @@
 import { ChaptersRepository } from 'src/repositories/chapters-repository';
 import { SubscriptionsRepository } from 'src/repositories/subscriptions-repository';
-import { SubscriptionNotFoundError } from '../errors/subscription-not-fount-error';
+import { SubscriptionNotFoundError } from '../../utils/errors/subscription-not-fount-error';
 import { DeleteChapterRequestBody } from 'src/utils/validators/chapters/delete-chapter-schema';
-import { ChapterNotFoundError } from '../errors/chapter-not-found-error';
+import { ChapterNotFoundError } from '../../utils/errors/chapter-not-found-error';
 
 export class DeleteChapterUseCase {
     constructor(private chaptersRepository: ChaptersRepository, private subscriptionsRepository: SubscriptionsRepository) {}

@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { ChapterNotFoundError } from 'src/use-cases/errors/chapter-not-found-error';
-import { SubscriptionNotFoundError } from 'src/use-cases/errors/subscription-not-fount-error';
-import { makeDeleteChapterUseCase } from 'src/use-cases/factories/make-delete-chapter';
+import { ChapterNotFoundError } from 'src/utils/errors/chapter-not-found-error';
+import { SubscriptionNotFoundError } from 'src/utils/errors/subscription-not-fount-error';
+import { makeDeleteChapterUseCase } from 'src/use-cases/_factories/make-delete-chapter';
 import { DeleteChapterRequestBody } from 'src/utils/validators/chapters/delete-chapter-schema';
 
 export async function deleteChapter(request: FastifyRequest, reply: FastifyReply) {

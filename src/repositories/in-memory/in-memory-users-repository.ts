@@ -1,11 +1,11 @@
-import { User, Prisma } from '@prisma/client';
-import { UsersRepository } from '../users-repository';
+import { CreateUserRequestSchemaPasswordHash, CreateUserRequestSchemaType } from 'src/utils/validators/user/create-user-schema';
+import { User, UsersRepository } from '../users-repository';
 import { randomUUID } from 'node:crypto';
 
 export class InMemoryUsersRepository implements UsersRepository {
     public items: User[] = [];
 
-    async create(data: Prisma.UserCreateInput) {
+    async create(data: CreateUserRequestSchemaPasswordHash) {
         const user: User = {
             id: randomUUID(),
             name: data.name,
