@@ -16,6 +16,7 @@ import { subscriptionsRoutes } from './http/controllers/subscriptions/routes';
 import { chapterRoutes } from './http/controllers/chapters/routes';
 import { jwtConfig } from './utils/constants/jwt-config';
 import { errorHandler } from './utils/error-handler';
+import { env } from './lib/env';
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
 
@@ -29,9 +30,15 @@ app.register(fastifyCors, { origin: true, credentials: true });
 app.register(fastifySwagger, {
     openapi: {
         info: {
-            title: 'Manga Nest API',
+            title: 'Manga nest Api',
             version: '1.0.0'
         },
+        servers: [
+            {
+                url: `http://localhost:${env.PORT}`,
+                description: 'Development server'
+            }
+        ],
         components: {
             securitySchemes: {
                 BearerAuth: {

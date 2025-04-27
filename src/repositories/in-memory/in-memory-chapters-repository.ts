@@ -1,32 +1,31 @@
-import { ChaptersRepository } from '../chapters-repository';
-import { Chapter } from '@prisma/client';
+import { GetChapterRequestBody } from 'src/utils/validators/chapters/get-chapter-schema';
+import { Chapter, ChaptersRepository } from '../chapters-repository';
+import { CreateChapterRequestBody } from 'src/utils/validators/chapters/create-chapter-schema';
+import { DeleteChapterRequestBody } from 'src/utils/validators/chapters/delete-chapter-schema';
 
 export class InMemoryChaptersRepository implements ChaptersRepository {
     public chapters: Chapter[] = [];
 
-    async create({ subscriptionId, number }: { subscriptionId: string; number: number }) {
-        this.chapters.push({
-            id: crypto.randomUUID(),
-            number,
-            subscriptionId
-        });
+    async get(data: GetChapterRequestBody) {
+        const chapter = this.chapters.find((chapter) => chapter.subscriptionId === data.subscriptionId && chapter.number === data.number);
+        return chapter ?? null;
+    }
 
-        return {
+    async create({ subscriptionId, number }: CreateChapterRequestBody) {
+        const chapter = {
             id: crypto.randomUUID(),
             number,
             subscriptionId
         };
+
+        this.chapters.push(chapter);
+        return chapter;
     }
 
-    async delete({ subscriptionId, number }: { subscriptionId: string; number: number }) {
+    async delete({ subscriptionId, number }: DeleteChapterRequestBody) {
         const removedChapter = this.chapters.find((chapter) => chapter.subscriptionId === subscriptionId && chapter.number === number);
-
-        if (!removedChapter) {
-            throw new Error(`Chapter with subscriptionId ${subscriptionId} and number ${number} not found`);
-        }
-
         this.chapters = this.chapters.filter((chapter) => !(chapter.subscriptionId === subscriptionId && chapter.number === number));
 
-        return removedChapter;
+        return removedChapter ?? null;
     }
 }

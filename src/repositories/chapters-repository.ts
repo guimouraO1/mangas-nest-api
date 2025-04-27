@@ -1,6 +1,15 @@
-import { Chapter } from '@prisma/client';
+import { CreateChapterRequestBody } from 'src/utils/validators/chapters/create-chapter-schema';
+import { DeleteChapterRequestBody } from 'src/utils/validators/chapters/delete-chapter-schema';
+import { GetChapterRequestBody } from 'src/utils/validators/chapters/get-chapter-schema';
+
+export type Chapter = {
+    number: number;
+    subscriptionId: string;
+    id: string;
+}
 
 export interface ChaptersRepository {
-    create(data: { subscriptionId: string; number: number }): Promise<Chapter>;
-    delete(data: { subscriptionId: string; number: number }): Promise<Chapter>;
+    create(data: CreateChapterRequestBody): Promise<Chapter>;
+    delete(data: DeleteChapterRequestBody): Promise<Chapter | null>;
+    get(data: GetChapterRequestBody): Promise<Chapter | null>;
 }

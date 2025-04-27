@@ -1,41 +1,24 @@
-import { Chapter } from '@prisma/client';
-import { ResourceNotFoundError } from '../errors/resource-not-found-error';
-import { ForbiddenError } from '../errors/forbidden-error';
 import { ChaptersRepository } from 'src/repositories/chapters-repository';
 import { SubscriptionsRepository } from 'src/repositories/subscriptions-repository';
-
-interface CreateChapterUseCaseRequest {
-    subscriptionId: string;
-    number: number;
-    userId: string;
-}
-
-interface CreateChapterUseCaseResponse {
-    chapter: Chapter;
-}
+import { CreateChapterRequestBody } from 'src/utils/validators/chapters/create-chapter-schema';
+import { SubscriptionNotFoundError } from '../errors/subscription-not-fount-error';
+import { ChapterAlreadyExistsError } from '../errors/chapter-already-exists-error';
 
 export class CreateChapterUseCase {
-    constructor(
-        private chaptersRepository: ChaptersRepository,
-        private subscriptionsRepository: SubscriptionsRepository
-    ) {}
+    constructor(private chaptersRepository: ChaptersRepository, private subscriptionsRepository: SubscriptionsRepository) {}
 
-    async execute({ subscriptionId, number, userId }: CreateChapterUseCaseRequest): Promise<CreateChapterUseCaseResponse> {
+    async execute({ subscriptionId, number }: CreateChapterRequestBody) {
         const subscription = await this.subscriptionsRepository.getSubscriptionById({ subscriptionId });
-
         if (!subscription) {
-            throw new ResourceNotFoundError();
+            throw new SubscriptionNotFoundError();
         }
 
-        if (subscription.userId !== userId) {
-            throw new ForbiddenError();
+        const isChapterAlreadyExists = await this.chaptersRepository.get({ subscriptionId, number });
+        if(isChapterAlreadyExists) {
+            throw new ChapterAlreadyExistsError();
         }
 
-        const chapter = await this.chaptersRepository.create({
-            subscriptionId,
-            number
-        });
-
-        return { chapter };
+        const chapter = await this.chaptersRepository.create({ subscriptionId, number });
+        return chapter;
     }
 }

@@ -4,9 +4,7 @@ export async function verifyJwt(request: FastifyRequest, reply: FastifyReply) {
     try {
         const authHeader = request.headers.authorization;
         if (!authHeader || !authHeader.startsWith('Bearer ')) {
-            return reply.status(401).send({
-                message: 'Authorization header missing or malformed.'
-            });
+            return reply.status(401).send({ message: 'Authorization header missing or malformed.' });
         }
 
         const token: any = authHeader.split(' ')[1];

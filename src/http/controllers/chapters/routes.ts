@@ -1,96 +1,57 @@
 import { createChapter } from './create-chapter.controller';
-import { z } from 'zod';
 import { deleteChapter } from './delete-chapter.controller';
 import { FastifyTypedInstance } from 'src/@types/fastify-type';
 import { verifyJwt } from 'src/http/middlewares/verify-jwt';
+import { CreateChapterRequestBodyZod } from 'src/utils/validators/chapters/create-chapter-schema';
+import { CreatedSchema } from 'src/utils/validators/default-responses/created-schema';
+import { BadRequestSchema } from 'src/utils/validators/errors/bad-request-schema';
+import { ForbiddenSchema } from 'src/utils/validators/errors/forbidden-schema';
+import { InternalServerErrorSchema } from 'src/utils/validators/errors/internal-server-error-schema';
+import { NotFoundSchema } from 'src/utils/validators/errors/not-found-schema';
+import { UnauthorizedSchema } from 'src/utils/validators/errors/unauthorized-schema';
+import { authorizeOwnerOrAdminBody } from 'src/http/middlewares/authorize-owner-or-admin-body';
+import { authorizeOwnerOrAdminParams } from 'src/http/middlewares/authorize-owner-or-admin-params';
+import { DeleteChapterRequestBodyZod } from 'src/utils/validators/chapters/delete-chapter-schema';
+import { ConflictSchema } from 'src/utils/validators/errors/conflict-schema';
 
 export async function chapterRoutes(app: FastifyTypedInstance) {
-    app.post(
-        '/chapter',
+    app.post('/chapter',
         {
-            onRequest: [verifyJwt],
+            onRequest: [verifyJwt, authorizeOwnerOrAdminBody],
             schema: {
                 description: 'Create chapter',
                 tags: ['chapters'],
-                security: [
-                    {
-                        BearerAuth: []
-                    }
-                ],
-                body: z.object({
-                    subscriptionId: z.string(),
-                    number: z.number()
-                }),
+                security: [{ BearerAuth: [] }],
+                body: CreateChapterRequestBodyZod,
                 response: {
-                    201: z.object({}).describe('Chapter created successfully'),
-                    400: z
-                        .object({
-                            message: z.string(),
-                            issues: z.array(
-                                z.object({
-                                    errorCode: z.string(),
-                                    field: z.string(),
-                                    message: z.string()
-                                })
-                            )
-                        })
-                        .describe('Bad Request'),
-                    401: z
-                        .object({
-                            message: z.string()
-                        })
-                        .describe('Unauthorized'),
-                    500: z
-                        .object({
-                            message: z.string()
-                        })
-                        .describe('Internal Server Error')
+                    201: CreatedSchema.describe('Chapter created successfully'),
+                    400: BadRequestSchema,
+                    401: UnauthorizedSchema,
+                    403: ForbiddenSchema,
+                    404: NotFoundSchema,
+                    409: ConflictSchema,
+                    500: InternalServerErrorSchema
                 }
             }
         },
         createChapter
     );
 
-    app.delete(
-        '/chapter/:subscriptionId/:number',
+    app.delete('/chapter/:subscriptionId/:number',
         {
-            onRequest: [verifyJwt],
+            onRequest: [verifyJwt, authorizeOwnerOrAdminParams],
             schema: {
                 description: 'Delete chapter',
                 tags: ['chapters'],
-                security: [
-                    {
-                        BearerAuth: []
-                    }
-                ],
-                params: z.object({
-                    subscriptionId: z.string(),
-                    number: z.string().transform(Number)
-                }),
+                security: [{ BearerAuth: [] }],
+                params: DeleteChapterRequestBodyZod,
                 response: {
-                    200: z.object({}).describe('Chapter deleted successfully'),
-                    400: z
-                        .object({
-                            message: z.string(),
-                            issues: z.array(
-                                z.object({
-                                    errorCode: z.string(),
-                                    field: z.string(),
-                                    message: z.string()
-                                })
-                            )
-                        })
-                        .describe('Bad Request'),
-                    401: z
-                        .object({
-                            message: z.string()
-                        })
-                        .describe('Unauthorized'),
-                    500: z
-                        .object({
-                            message: z.string()
-                        })
-                        .describe('Internal Server Error')
+                    200: CreatedSchema.describe('Chapter deleted successfully'),
+                    400: BadRequestSchema,
+                    401: UnauthorizedSchema,
+                    403: ForbiddenSchema,
+                    404: NotFoundSchema,
+                    500: InternalServerErrorSchema
                 }
             }
         },

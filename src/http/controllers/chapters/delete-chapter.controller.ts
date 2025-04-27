@@ -1,22 +1,26 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
+import { ChapterNotFoundError } from 'src/use-cases/errors/chapter-not-found-error';
+import { SubscriptionNotFoundError } from 'src/use-cases/errors/subscription-not-fount-error';
 import { makeDeleteChapterUseCase } from 'src/use-cases/factories/make-delete-chapter';
-import { z } from 'zod';
+import { DeleteChapterRequestBody } from 'src/utils/validators/chapters/delete-chapter-schema';
 
 export async function deleteChapter(request: FastifyRequest, reply: FastifyReply) {
-    const deleteChapterParamsSchema = z.object({
-        subscriptionId: z.string(),
-        number: z.number().transform(Number)
-    });
-
-    const { subscriptionId, number } = deleteChapterParamsSchema.parse(request.params);
+    const { subscriptionId, number } = request.params as DeleteChapterRequestBody;
 
     try {
         const deleteChapterUseCase = makeDeleteChapterUseCase();
-
-        await deleteChapterUseCase.execute({ subscriptionId, number, userId: request.user.sub });
+        await deleteChapterUseCase.execute({ subscriptionId, number });
 
         return reply.status(200).send({});
     } catch (error) {
-        throw new Error('');
+        if (error instanceof SubscriptionNotFoundError) {
+            return reply.status(404).send({ message: error.message });
+        }
+
+        if (error instanceof ChapterNotFoundError) {
+            return reply.status(409).send({ message: error.message });
+        }
+
+        throw error;
     }
 }
