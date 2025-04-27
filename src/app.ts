@@ -4,7 +4,6 @@ import { userRoutes } from './http/controllers/users/routes';
 import { fastifyCookie } from '@fastify/cookie';
 import { fastifyCors } from '@fastify/cors';
 import {
-    jsonSchemaTransform,
     serializerCompiler,
     validatorCompiler,
     ZodTypeProvider
@@ -16,6 +15,8 @@ import { subscriptionsRoutes } from './http/controllers/subscriptions/routes';
 import { chapterRoutes } from './http/controllers/chapters/routes';
 import { jwtConfig } from './utils/constants/jwt-config';
 import { errorHandler } from './utils/error-handler';
+import { authRoutes } from './http/controllers/auth/routes';
+import { fastifySwaggerConfig } from './utils/constants/teste';
 import { env } from './lib/env';
 
 const app = fastify().withTypeProvider<ZodTypeProvider>();
@@ -24,35 +25,13 @@ app.setValidatorCompiler(validatorCompiler);
 app.setSerializerCompiler(serializerCompiler);
 
 app.register(fastifyJwt, jwtConfig);
-app.register(fastifyCookie);
+app.register(fastifyCookie, { secret: env.COOKIE_SECRET });
 app.register(fastifyCors, { origin: true, credentials: true });
 
-app.register(fastifySwagger, {
-    openapi: {
-        info: {
-            title: 'Manga nest Api',
-            version: '1.0.0'
-        },
-        servers: [
-            {
-                url: `http://localhost:${env.PORT}`,
-                description: 'Development server'
-            }
-        ],
-        components: {
-            securitySchemes: {
-                BearerAuth: {
-                    type: 'http',
-                    scheme: 'bearer',
-                    bearerFormat: 'JWT'
-                }
-            }
-        }
-    },
-    transform: jsonSchemaTransform
-});
+app.register(fastifySwagger, fastifySwaggerConfig);
 
 app.register(fastifySwaggerUi, { routePrefix: '/docs' });
+app.register(authRoutes);
 app.register(userRoutes);
 app.register(mangaRoutes);
 app.register(subscriptionsRoutes);

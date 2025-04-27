@@ -10,7 +10,7 @@ export const jwtConfig = {
         expiresIn: env.JWT_EXPIRATION_TIME
     },
     cookie: {
-        cookieName: env.REFRESH_COOKIE_NAME,
+        cookieName: env.REFRESH_TOKEN_NAME,
         signed: true
     }
 };

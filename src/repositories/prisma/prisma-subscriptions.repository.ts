@@ -1,7 +1,6 @@
 import { prisma } from 'src/lib/prisma';
-import { Subscription } from '@prisma/client';
 import { SubscriptionsRepository } from '../subscriptions-repository';
-import { LAST_CHAPTERS_OFFSEET } from '../../utils/default-offset-chapters';
+import { LAST_CHAPTERS_OFFSEET } from '../../utils/constants/default-offset-chapters';
 
 export class PrismaSubscriptionsRepository implements SubscriptionsRepository {
 

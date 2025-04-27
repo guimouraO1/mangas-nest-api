@@ -9,9 +9,11 @@ const envShema = z.object({
     JWT_PUBLIC_KEY: z.string(),
     JWT_PRIVATE_KEY: z.string(),
     JWT_EXPIRATION_TIME: z.string(),
-    JWT_ALGORITHM: z.enum(['RS256', 'HS256']).default('RS256'),
+    JWT_ALGORITHM: z.enum(['RS256']).default('RS256'),
 
-    REFRESH_COOKIE_NAME: z.string().default('refreshToken')
+    JWT_REFRESH_TOKEN_EXPIRATION_TIME: z.string().default('7d'),
+    REFRESH_TOKEN_NAME: z.string().default('refreshToken'),
+    COOKIE_SECRET: z.string().default('cookieSecret')
 });
 
 const _env = envShema.safeParse(process.env);
