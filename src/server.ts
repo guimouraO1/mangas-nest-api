@@ -1,7 +1,7 @@
-import cluster from "cluster";
-import os from "os";
-import { app } from "./app";
-import { env } from "./env";
+import cluster from 'cluster';
+import os from 'os';
+import app from './app';
+import { env } from './lib/env';
 
 const workersMap: { [key: string]: number } = {};
 
@@ -18,7 +18,7 @@ function generateWorkers() {
         createWorker(i + 1);
     }
 
-    cluster.on("exit", (worker) => {
+    cluster.on('exit', (worker) => {
         const workerId = workersMap[worker.id];
         delete workersMap[worker.id];
         createWorker(workerId);
@@ -28,12 +28,12 @@ function generateWorkers() {
 async function startHttpServer() {
     try {
         await app.listen({
-            host: "0.0.0.0",
+            host: '0.0.0.0',
             port: Number(env.PORT) || 3000
         });
         console.log(`🚀 HTTP Server is running on port: ${env.PORT ?? 3000}`);
     } catch (error) {
-        console.error("Error starting server:", error);
+        console.error('Error starting server:', error);
     }
 }
 
@@ -46,5 +46,5 @@ async function startServers() {
 }
 
 startServers().catch((err) => {
-    console.error("Error starting servers:", err);
+    console.error('Error starting servers:', err);
 });

@@ -1,5 +1,5 @@
-import { Manga, Prisma } from "@prisma/client";
-import { MangasRepository } from "../mangas-repository";
+import { Manga, Prisma } from '@prisma/client';
+import { MangasRepository } from '../mangas-repository';
 
 export class InMemoryMangasRepository implements MangasRepository {
     public mangas: Manga[] = [];

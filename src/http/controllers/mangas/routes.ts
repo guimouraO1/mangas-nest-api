@@ -1,27 +1,26 @@
-import { z } from "zod";
-import { FastifyTypedInstance } from "@/@types/fastify-type";
-import { createManga } from "./create-manga.controller";
-import { getPaginatedMangas } from "./get-paginated-mangas";
-import { verifyJwt } from "@/http/middlewares/verify-jwt";
-import { authorizeAdminOnly } from "@/http/middlewares/verify-admin-role";
-import { getAllMangasCount } from "./get-all-mangas-count.controller";
-import { uploadMangaImage } from "./upload-manga-image";
+import { z } from 'zod';
+import { createManga } from './create-manga.controller';
+import { getPaginatedMangas } from './get-paginated-mangas';
+import { getAllMangasCount } from './get-all-mangas-count.controller';
+import { FastifyTypedInstance } from 'src/@types/fastify-type';
+import { authorizeAdminOnly } from 'src/http/middlewares/verify-admin-role';
+import { verifyJwt } from 'src/http/middlewares/verify-jwt';
 
 export async function mangaRoutes(app: FastifyTypedInstance) {
     app.post(
-        "/manga",
+        '/manga',
         {
             onRequest: [verifyJwt, authorizeAdminOnly],
             schema: {
-                description: "Create a new manga",
-                tags: ["mangas"],
+                description: 'Create a new manga',
+                tags: ['mangas'],
                 body: z.object({
                     name: z.string().max(60),
                     url: z.string().url(),
-                    date: z.enum(["mon", "tue", "wed", "thu", "fri", "sat", "sun"])
+                    date: z.enum(['mon', 'tue', 'wed', 'thu', 'fri', 'sat', 'sun'])
                 }),
                 response: {
-                    201: z.object({}).describe("Manga created"),
+                    201: z.object({}).describe('Manga created'),
                     400: z
                         .object({
                             message: z.string(),
@@ -33,34 +32,35 @@ export async function mangaRoutes(app: FastifyTypedInstance) {
                                 })
                             )
                         })
-                        .describe("Bad Request"),
+                        .describe('Bad Request'),
                     401: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Unauthorized"),
+                        .describe('Unauthorized'),
                     403: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Forbidden"),
+                        .describe('Forbidden'),
                     500: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Internal Server Error")
+                        .describe('Internal Server Error')
                 }
             }
         },
         createManga
     );
+
     app.get(
-        "/manga",
+        '/manga',
         {
             onRequest: [verifyJwt],
             schema: {
-                description: "Get Paginated Mangas",
-                tags: ["mangas"],
+                description: 'Get Paginated Mangas',
+                tags: ['mangas'],
                 security: [
                     {
                         BearerAuth: []
@@ -89,7 +89,7 @@ export async function mangaRoutes(app: FastifyTypedInstance) {
                                     )
                                 })
                             )
-                            .describe("Successfully Get Paginated Mangas")
+                            .describe('Successfully Get Paginated Mangas')
                     }),
                     400: z
                         .object({
@@ -102,17 +102,17 @@ export async function mangaRoutes(app: FastifyTypedInstance) {
                                 })
                             )
                         })
-                        .describe("Bad Request"),
+                        .describe('Bad Request'),
                     401: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Unauthorized"),
+                        .describe('Unauthorized'),
                     500: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Internal Server Error")
+                        .describe('Internal Server Error')
                 }
             }
         },
@@ -120,12 +120,12 @@ export async function mangaRoutes(app: FastifyTypedInstance) {
     );
 
     app.get(
-        "/manga/count",
+        '/manga/count',
         {
             onRequest: [verifyJwt],
             schema: {
-                description: "Get All Mangas Count",
-                tags: ["mangas"],
+                description: 'Get All Mangas Count',
+                tags: ['mangas'],
                 security: [
                     {
                         BearerAuth: []
@@ -133,60 +133,21 @@ export async function mangaRoutes(app: FastifyTypedInstance) {
                 ],
                 response: {
                     200: z.object({
-                        mangasCount: z.number().describe("Successfully Get All Mangas Count")
+                        mangasCount: z.number().describe('Successfully Get All Mangas Count')
                     }),
                     401: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Unauthorized"),
+                        .describe('Unauthorized'),
                     500: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Internal Server Error")
+                        .describe('Internal Server Error')
                 }
             }
         },
         getAllMangasCount
-    );
-
-    app.get(
-        "/manga/upload/image",
-        {
-            onRequest: [verifyJwt, authorizeAdminOnly],
-            schema: {
-                description: "Get presigned Url",
-                tags: ["mangas"],
-                security: [
-                    {
-                        BearerAuth: []
-                    }
-                ],
-                querystring: z.object({
-                    fileType: z.string()
-                }),
-                response: {
-                    200: z
-                        .object({
-                            signedUrl: z.string(),
-                            fileExtension: z.string(),
-                            key: z.string()
-                        })
-                        .describe("Successfully Get presigned urls"),
-                    401: z
-                        .object({
-                            message: z.string()
-                        })
-                        .describe("Unauthorized"),
-                    500: z
-                        .object({
-                            message: z.string()
-                        })
-                        .describe("Internal Server Error")
-                }
-            }
-        },
-        uploadMangaImage
     );
 }

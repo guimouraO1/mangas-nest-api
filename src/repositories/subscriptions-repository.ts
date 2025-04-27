@@ -1,4 +1,4 @@
-import { Subscription } from "@prisma/client";
+import { Subscription } from '@prisma/client';
 
 export interface SubscriptionsRepository {
     subscribe(data: { userId: string; mangaId: string; rating: number }): Promise<Subscription>;

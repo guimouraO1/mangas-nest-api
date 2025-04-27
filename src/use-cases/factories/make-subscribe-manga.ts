@@ -1,6 +1,6 @@
-import { PrismaMangasRepository } from "@/repositories/prisma/prisma-mangas-repository";
-import { PrismaSubscriptionsRepository } from "@/repositories/prisma/prisma-subscriptions.repository";
-import { SubscribeMangaUseCase } from "../subscriptions/subscribe-manga";
+import { PrismaMangasRepository } from 'src/repositories/prisma/prisma-mangas-repository';
+import { PrismaSubscriptionsRepository } from 'src/repositories/prisma/prisma-subscriptions.repository';
+import { SubscribeMangaUseCase } from '../subscriptions/subscribe-manga';
 
 export function makeSubscribeMangaUseCase() {
     const subscriptionsRepository = new PrismaSubscriptionsRepository();

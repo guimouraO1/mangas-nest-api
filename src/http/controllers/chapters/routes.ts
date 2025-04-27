@@ -1,17 +1,17 @@
-import { FastifyTypedInstance } from "@/@types/fastify-type";
-import { createChapter } from "./create-chapter.controller";
-import { verifyJwt } from "@/http/middlewares/verify-jwt";
-import { z } from "zod";
-import { deleteChapter } from "./delete-chapter.controller";
+import { createChapter } from './create-chapter.controller';
+import { z } from 'zod';
+import { deleteChapter } from './delete-chapter.controller';
+import { FastifyTypedInstance } from 'src/@types/fastify-type';
+import { verifyJwt } from 'src/http/middlewares/verify-jwt';
 
 export async function chapterRoutes(app: FastifyTypedInstance) {
     app.post(
-        "/chapter",
+        '/chapter',
         {
             onRequest: [verifyJwt],
             schema: {
-                description: "Create chapter",
-                tags: ["chapters"],
+                description: 'Create chapter',
+                tags: ['chapters'],
                 security: [
                     {
                         BearerAuth: []
@@ -22,7 +22,7 @@ export async function chapterRoutes(app: FastifyTypedInstance) {
                     number: z.number()
                 }),
                 response: {
-                    201: z.object({}).describe("Chapter created successfully"),
+                    201: z.object({}).describe('Chapter created successfully'),
                     400: z
                         .object({
                             message: z.string(),
@@ -34,17 +34,17 @@ export async function chapterRoutes(app: FastifyTypedInstance) {
                                 })
                             )
                         })
-                        .describe("Bad Request"),
+                        .describe('Bad Request'),
                     401: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Unauthorized"),
+                        .describe('Unauthorized'),
                     500: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Internal Server Error")
+                        .describe('Internal Server Error')
                 }
             }
         },
@@ -52,12 +52,12 @@ export async function chapterRoutes(app: FastifyTypedInstance) {
     );
 
     app.delete(
-        "/chapter/:subscriptionId/:number",
+        '/chapter/:subscriptionId/:number',
         {
             onRequest: [verifyJwt],
             schema: {
-                description: "Delete chapter",
-                tags: ["chapters"],
+                description: 'Delete chapter',
+                tags: ['chapters'],
                 security: [
                     {
                         BearerAuth: []
@@ -68,7 +68,7 @@ export async function chapterRoutes(app: FastifyTypedInstance) {
                     number: z.string().transform(Number)
                 }),
                 response: {
-                    200: z.object({}).describe("Chapter deleted successfully"),
+                    200: z.object({}).describe('Chapter deleted successfully'),
                     400: z
                         .object({
                             message: z.string(),
@@ -80,17 +80,17 @@ export async function chapterRoutes(app: FastifyTypedInstance) {
                                 })
                             )
                         })
-                        .describe("Bad Request"),
+                        .describe('Bad Request'),
                     401: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Unauthorized"),
+                        .describe('Unauthorized'),
                     500: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Internal Server Error")
+                        .describe('Internal Server Error')
                 }
             }
         },

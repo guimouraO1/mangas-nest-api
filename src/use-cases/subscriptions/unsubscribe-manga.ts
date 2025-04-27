@@ -1,6 +1,6 @@
-import { SubscriptionsRepository } from "@/repositories/subscriptions-repository";
-import { ForbiddenError } from "../errors/forbidden-error";
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { SubscriptionsRepository } from 'src/repositories/subscriptions-repository';
+import { ForbiddenError } from '../errors/forbidden-error';
+import { ResourceNotFoundError } from '../errors/resource-not-found-error';
 
 interface UnsubscribeMangaUseCaseRequest {
     subscriptionId: string;

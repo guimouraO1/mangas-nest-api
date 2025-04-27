@@ -1,8 +1,8 @@
-import { z } from "zod";
-import { FastifyRequest, FastifyReply } from "fastify";
-import { InvalidCredentialsError } from "@/use-cases/errors/invalid-credentials-error";
-import { makeAuthenticateUseCase } from "@/use-cases/factories/make-authenticate-use-case";
-import { env } from "@/env";
+import { z } from 'zod';
+import { FastifyRequest, FastifyReply } from 'fastify';
+import { makeAuthenticateUseCase } from 'src/use-cases/factories/make-authenticate-use-case';
+import { env } from 'src/lib/env';
+import { InvalidCredentialsError } from 'src/use-cases/errors/invalid-credentials-error';
 
 export async function authenticate(request: FastifyRequest, reply: FastifyReply) {
     const authenticateBodySchema = z.object({
@@ -35,14 +35,14 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
             {
                 sign: {
                     sub: user.id,
-                    expiresIn: "7d"
+                    expiresIn: '7d'
                 }
             }
         );
 
         reply
             .setCookie(env.REFRESH_COOKIE_NAME, refreshToken, {
-                path: "/",
+                path: '/',
                 httpOnly: true,
                 secure: true,
                 sameSite: true
@@ -55,8 +55,8 @@ export async function authenticate(request: FastifyRequest, reply: FastifyReply)
                 message: error.message,
                 issues: [
                     {
-                        errorCode: "invalid_credentials",
-                        field: "credentials",
+                        errorCode: 'invalid_credentials',
+                        field: 'credentials',
                         message: error.message
                     }
                 ]

@@ -1,5 +1,5 @@
-import { PrismaMangasRepository } from "@/repositories/prisma/prisma-mangas-repository";
-import { GetPaginatedMangasUseCase } from "../mangas/get-paginated-mangas";
+import { PrismaMangasRepository } from 'src/repositories/prisma/prisma-mangas-repository';
+import { GetPaginatedMangasUseCase } from '../mangas/get-paginated-mangas';
 
 export function makeGetPaginatedMangasUseCase() {
     const mangasRepository = new PrismaMangasRepository();

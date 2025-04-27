@@ -1,5 +1,5 @@
-import { env } from "@/env";
-import { FastifyRequest, FastifyReply } from "fastify";
+import { FastifyRequest, FastifyReply } from 'fastify';
+import { env } from 'src/lib/env';
 
 export async function refresh(request: FastifyRequest, reply: FastifyReply) {
     try {
@@ -21,14 +21,14 @@ export async function refresh(request: FastifyRequest, reply: FastifyReply) {
             {
                 sign: {
                     sub: request.user.sub,
-                    expiresIn: "7d"
+                    expiresIn: '7d'
                 }
             }
         );
 
         reply
             .setCookie(env.REFRESH_COOKIE_NAME, refreshToken, {
-                path: "/",
+                path: '/',
                 httpOnly: true,
                 secure: true,
                 sameSite: true
@@ -36,7 +36,7 @@ export async function refresh(request: FastifyRequest, reply: FastifyReply) {
             .status(200)
             .send({ token });
     } catch (error: any) {
-        if (error.code === "FST_JWT_NO_AUTHORIZATION_IN_COOKIE") {
+        if (error.code === 'FST_JWT_NO_AUTHORIZATION_IN_COOKIE') {
             return reply.status(401).send({
                 error: {
                     code: error.code,

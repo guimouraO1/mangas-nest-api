@@ -1,6 +1,6 @@
-import { z } from "zod";
-import { FastifyRequest, FastifyReply } from "fastify";
-import { makeGetPaginatedMangasUseCase } from "@/use-cases/factories/make-get-paginated-mangas";
+import { z } from 'zod';
+import { FastifyRequest, FastifyReply } from 'fastify';
+import { makeGetPaginatedMangasUseCase } from 'src/use-cases/factories/make-get-paginated-mangas';
 
 export async function getPaginatedMangas(request: FastifyRequest, reply: FastifyReply) {
     const getPaginatedMangasSchema = z.object({
@@ -17,6 +17,6 @@ export async function getPaginatedMangas(request: FastifyRequest, reply: Fastify
 
         return reply.status(200).send({ mangas });
     } catch (error) {
-        throw new Error("");
+        throw new Error('');
     }
 }

@@ -1,19 +1,19 @@
-import { z } from "zod";
-import { FastifyTypedInstance } from "@/@types/fastify-type";
-import { verifyJwt } from "@/http/middlewares/verify-jwt";
-import { getUserPaginatedSubscriptions } from "./get-paginated-subscriptions.controller";
-import { getUserSubscriptionsCount } from "./get-user-subscriptions-count.controller";
-import { subscribeManga } from "./subscribe-manga.controller";
-import { unsubscribeManga } from "./unsubscribe-manga.controller";
+import { z } from 'zod';
+import { getUserPaginatedSubscriptions } from './get-paginated-subscriptions.controller';
+import { getUserSubscriptionsCount } from './get-user-subscriptions-count.controller';
+import { subscribeManga } from './subscribe-manga.controller';
+import { unsubscribeManga } from './unsubscribe-manga.controller';
+import { verifyJwt } from 'src/http/middlewares/verify-jwt';
+import { FastifyTypedInstance } from 'src/@types/fastify-type';
 
 export async function subscriptionsRoutes(app: FastifyTypedInstance) {
     app.get(
-        "/subscriptions",
+        '/subscriptions',
         {
             onRequest: [verifyJwt],
             schema: {
-                description: "Get Paginated Subscriptions",
-                tags: ["subscriptions"],
+                description: 'Get Paginated Subscriptions',
+                tags: ['subscriptions'],
                 security: [
                     {
                         BearerAuth: []
@@ -57,7 +57,7 @@ export async function subscriptionsRoutes(app: FastifyTypedInstance) {
                                 })
                             )
                         })
-                        .describe("Successfully Get Paginated Subscriptions"),
+                        .describe('Successfully Get Paginated Subscriptions'),
                     400: z
                         .object({
                             message: z.string(),
@@ -69,22 +69,22 @@ export async function subscriptionsRoutes(app: FastifyTypedInstance) {
                                 })
                             )
                         })
-                        .describe("Bad Request"),
+                        .describe('Bad Request'),
                     401: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Unauthorized"),
+                        .describe('Unauthorized'),
                     403: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Forbidden"),
+                        .describe('Forbidden'),
                     500: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Internal Server Error")
+                        .describe('Internal Server Error')
                 }
             }
         },
@@ -92,12 +92,12 @@ export async function subscriptionsRoutes(app: FastifyTypedInstance) {
     );
 
     app.get(
-        "/subscriptions/count",
+        '/subscriptions/count',
         {
             onRequest: [verifyJwt],
             schema: {
-                description: "Get User Subscriptions Count",
-                tags: ["subscriptions"],
+                description: 'Get User Subscriptions Count',
+                tags: ['subscriptions'],
                 security: [
                     {
                         BearerAuth: []
@@ -108,17 +108,17 @@ export async function subscriptionsRoutes(app: FastifyTypedInstance) {
                         .object({
                             subscriptionsCount: z.number()
                         })
-                        .describe("Successfully Get User Subscriptions Count"),
+                        .describe('Successfully Get User Subscriptions Count'),
                     401: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Unauthorized"),
+                        .describe('Unauthorized'),
                     500: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Internal Server Error")
+                        .describe('Internal Server Error')
                 }
             }
         },
@@ -126,12 +126,12 @@ export async function subscriptionsRoutes(app: FastifyTypedInstance) {
     );
 
     app.post(
-        "/subscriptions",
+        '/subscriptions',
         {
             onRequest: [verifyJwt],
             schema: {
-                description: "Subscribe manga",
-                tags: ["subscriptions"],
+                description: 'Subscribe manga',
+                tags: ['subscriptions'],
                 security: [
                     {
                         BearerAuth: []
@@ -142,7 +142,7 @@ export async function subscriptionsRoutes(app: FastifyTypedInstance) {
                     rating: z.number()
                 }),
                 response: {
-                    200: z.object({}).describe("Successfully subscribed to a manga"),
+                    200: z.object({}).describe('Successfully subscribed to a manga'),
                     400: z
                         .object({
                             message: z.string(),
@@ -154,17 +154,17 @@ export async function subscriptionsRoutes(app: FastifyTypedInstance) {
                                 })
                             )
                         })
-                        .describe("Bad Request"),
+                        .describe('Bad Request'),
                     401: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Unauthorized"),
+                        .describe('Unauthorized'),
                     500: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Internal Server Error")
+                        .describe('Internal Server Error')
                 }
             }
         },
@@ -172,12 +172,12 @@ export async function subscriptionsRoutes(app: FastifyTypedInstance) {
     );
 
     app.delete(
-        "/subscriptions/:subscriptionId",
+        '/subscriptions/:subscriptionId',
         {
             onRequest: [verifyJwt],
             schema: {
-                description: "Unsubscribe manga",
-                tags: ["subscriptions"],
+                description: 'Unsubscribe manga',
+                tags: ['subscriptions'],
                 security: [
                     {
                         BearerAuth: []
@@ -187,7 +187,7 @@ export async function subscriptionsRoutes(app: FastifyTypedInstance) {
                     subscriptionId: z.string()
                 }),
                 response: {
-                    200: z.object({}).describe("Successfully unsubscribe a manga"),
+                    200: z.object({}).describe('Successfully unsubscribe a manga'),
                     400: z
                         .object({
                             message: z.string(),
@@ -199,17 +199,17 @@ export async function subscriptionsRoutes(app: FastifyTypedInstance) {
                                 })
                             )
                         })
-                        .describe("Bad Request"),
+                        .describe('Bad Request'),
                     401: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Unauthorized"),
+                        .describe('Unauthorized'),
                     500: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Internal Server Error")
+                        .describe('Internal Server Error')
                 }
             }
         },

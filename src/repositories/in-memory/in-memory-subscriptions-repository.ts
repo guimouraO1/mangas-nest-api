@@ -1,5 +1,5 @@
-import { Subscription } from "@prisma/client";
-import { SubscriptionsRepository } from "../subscriptions-repository";
+import { Subscription } from '@prisma/client';
+import { SubscriptionsRepository } from '../subscriptions-repository';
 
 export class InMemorySubscriptionsRepository implements SubscriptionsRepository {
     public subscriptions: Subscription[] = [];

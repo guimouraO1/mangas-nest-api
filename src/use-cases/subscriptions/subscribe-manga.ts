@@ -1,6 +1,6 @@
-import { MangasRepository } from "@/repositories/mangas-repository";
-import { SubscriptionsRepository } from "@/repositories/subscriptions-repository";
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
+import { MangasRepository } from 'src/repositories/mangas-repository';
+import { SubscriptionsRepository } from 'src/repositories/subscriptions-repository';
+import { ResourceNotFoundError } from '../errors/resource-not-found-error';
 
 interface SubscribeMangaUseCaseRequest {
     userId: string;

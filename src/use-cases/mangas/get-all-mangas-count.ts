@@ -1,4 +1,4 @@
-import { MangasRepository } from "@/repositories/mangas-repository";
+import { MangasRepository } from 'src/repositories/mangas-repository';
 
 interface GetAllMangasCountUseCaseResponse {
     mangasCount: number;

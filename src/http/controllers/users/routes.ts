@@ -1,17 +1,17 @@
-import { register } from "./register.controller";
-import { authenticate } from "./authenticate.controller";
-import { refresh } from "./refresh.controller";
-import { z } from "zod";
-import { FastifyTypedInstance } from "@/@types/fastify-type";
-import { env } from "@/env";
+import { register } from './register.controller';
+import { authenticate } from './authenticate.controller';
+import { refresh } from './refresh.controller';
+import { z } from 'zod';
+import { FastifyTypedInstance } from 'src/@types/fastify-type';
+import { env } from 'src/lib/env';
 
 export async function userRoutes(app: FastifyTypedInstance) {
     app.get(
-        "/health-check",
+        '/health-check',
         {
             schema: {
-                description: "Health check",
-                tags: ["health-check"],
+                description: 'Health check',
+                tags: ['health-check'],
                 response: {
                     200: z.object({
                         healtly: z.boolean()
@@ -22,11 +22,11 @@ export async function userRoutes(app: FastifyTypedInstance) {
         async (_, reply) => reply.status(200).send({ healtly: true })
     );
     app.post(
-        "/user",
+        '/user',
         {
             schema: {
-                description: "Create a new user",
-                tags: ["users"],
+                description: 'Create a new user',
+                tags: ['users'],
                 body: z.object({
                     name: z.string().max(60),
                     username: z.string().max(20).trim(),
@@ -34,7 +34,7 @@ export async function userRoutes(app: FastifyTypedInstance) {
                     password: z.string().min(6).max(30)
                 }),
                 response: {
-                    201: z.object({}).describe("User created"),
+                    201: z.object({}).describe('User created'),
                     400: z
                         .object({
                             message: z.string(),
@@ -46,28 +46,28 @@ export async function userRoutes(app: FastifyTypedInstance) {
                                 })
                             )
                         })
-                        .describe("Bad Request"),
+                        .describe('Bad Request'),
                     409: z
                         .object({
                             message: z.string()
                         })
-                        .describe("E-mail or username already exists"),
+                        .describe('E-mail or username already exists'),
                     500: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Internal Server Error")
+                        .describe('Internal Server Error')
                 }
             }
         },
         register
     );
     app.post(
-        "/auth/session",
+        '/auth/session',
         {
             schema: {
-                description: "Start new cookie Session",
-                tags: ["auth"],
+                description: 'Start new cookie Session',
+                tags: ['auth'],
                 body: z.object({
                     email: z.string().email(),
                     password: z.string().min(6)
@@ -77,7 +77,7 @@ export async function userRoutes(app: FastifyTypedInstance) {
                         .object({
                             token: z.string()
                         })
-                        .describe("Authorization Successfully"),
+                        .describe('Authorization Successfully'),
                     400: z
                         .object({
                             message: z.string(),
@@ -89,23 +89,23 @@ export async function userRoutes(app: FastifyTypedInstance) {
                                 })
                             )
                         })
-                        .describe("Bad Request"),
+                        .describe('Bad Request'),
                     500: z
                         .object({
                             message: z.string()
                         })
-                        .describe("Internal Server Error")
+                        .describe('Internal Server Error')
                 }
             }
         },
         authenticate
     );
     app.post(
-        "/auth/end-session",
+        '/auth/end-session',
         {
             schema: {
-                description: "End cookie Session",
-                tags: ["auth"],
+                description: 'End cookie Session',
+                tags: ['auth'],
                 response: {
                     200: z.object({})
                 }
@@ -114,17 +114,17 @@ export async function userRoutes(app: FastifyTypedInstance) {
         async (_, reply) => reply.clearCookie(env.REFRESH_COOKIE_NAME).status(200).send({})
     );
     app.patch(
-        "/auth/refresh-token",
+        '/auth/refresh-token',
         {
             schema: {
-                description: "Refresh Token",
-                tags: ["auth"],
+                description: 'Refresh Token',
+                tags: ['auth'],
                 response: {
                     200: z
                         .object({
                             token: z.string()
                         })
-                        .describe("Authorization Successfully"),
+                        .describe('Authorization Successfully'),
                     401: z
                         .object({
                             error: z.object({
@@ -134,7 +134,7 @@ export async function userRoutes(app: FastifyTypedInstance) {
                                 message: z.string()
                             })
                         })
-                        .describe("Unauthorized: No Authorization in Cookies")
+                        .describe('Unauthorized: No Authorization in Cookies')
                 }
             }
         },

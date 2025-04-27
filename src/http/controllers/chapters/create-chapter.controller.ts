@@ -1,6 +1,6 @@
-import { makeCreateChapterUseCase } from "@/use-cases/factories/make-create-chapter";
-import { FastifyRequest, FastifyReply } from "fastify";
-import { z } from "zod";
+import { FastifyRequest, FastifyReply } from 'fastify';
+import { makeCreateChapterUseCase } from 'src/use-cases/factories/make-create-chapter';
+import { z } from 'zod';
 
 export async function createChapter(request: FastifyRequest, reply: FastifyReply) {
     const createChapterBodySchema = z.object({
@@ -17,6 +17,6 @@ export async function createChapter(request: FastifyRequest, reply: FastifyReply
 
         return reply.status(201).send({});
     } catch (error) {
-        throw new Error("");
+        throw new Error('');
     }
 }

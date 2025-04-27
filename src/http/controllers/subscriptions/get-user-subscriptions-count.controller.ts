@@ -1,5 +1,5 @@
-import { FastifyRequest, FastifyReply } from "fastify";
-import { makeGetUserSubscriptionsCountUseCase } from "@/use-cases/factories/make-get-user-subscriptions-count";
+import { FastifyRequest, FastifyReply } from 'fastify';
+import { makeGetUserSubscriptionsCountUseCase } from 'src/use-cases/factories/make-get-user-subscriptions-count';
 
 export async function getUserSubscriptionsCount(request: FastifyRequest, reply: FastifyReply) {
     try {
@@ -9,6 +9,6 @@ export async function getUserSubscriptionsCount(request: FastifyRequest, reply: 
 
         return reply.status(200).send({ subscriptionsCount });
     } catch (error) {
-        throw new Error("");
+        throw new Error('');
     }
 }

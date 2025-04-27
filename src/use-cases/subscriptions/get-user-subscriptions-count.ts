@@ -1,4 +1,4 @@
-import { SubscriptionsRepository } from "@/repositories/subscriptions-repository";
+import { SubscriptionsRepository } from 'src/repositories/subscriptions-repository';
 
 interface GetUserSubscriptionsCountUseCaseRequest {
     userId: string;

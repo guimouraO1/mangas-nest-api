@@ -1,8 +1,8 @@
-import { Chapter } from "@prisma/client";
-import { ChaptersRepository } from "@/repositories/chapters-repository";
-import { SubscriptionsRepository } from "@/repositories/subscriptions-repository";
-import { ResourceNotFoundError } from "../errors/resource-not-found-error";
-import { ForbiddenError } from "../errors/forbidden-error";
+import { Chapter } from '@prisma/client';
+import { ResourceNotFoundError } from '../errors/resource-not-found-error';
+import { ForbiddenError } from '../errors/forbidden-error';
+import { ChaptersRepository } from 'src/repositories/chapters-repository';
+import { SubscriptionsRepository } from 'src/repositories/subscriptions-repository';
 
 interface CreateChapterUseCaseRequest {
     subscriptionId: string;

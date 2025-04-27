@@ -1,12 +1,12 @@
-import { prisma } from "@/lib/prisma";
-import { Manga, Prisma } from "@prisma/client";
-import { MangasRepository } from "../mangas-repository";
+import { prisma } from 'src/lib/prisma';
+import { Manga, Prisma } from '@prisma/client';
+import { MangasRepository } from '../mangas-repository';
 
 export class PrismaMangasRepository implements MangasRepository {
     async getMangaById({ mangaId }: { mangaId: string; }) {
         const manga = await prisma.manga.findUnique({
             where: { id: mangaId }
-        })
+        });
 
         return manga;
     }
@@ -25,15 +25,15 @@ export class PrismaMangasRepository implements MangasRepository {
 
     async getPaginatedMangas({ page, offset, userId }: { page: number; offset: number; userId: string; }) {
         const skip = (page - 1) * offset;
-        
+
         const mangas = await prisma.manga.findMany({
             include: {
                 subscriptions: {
                     where: { userId },
-                    select: { 
-                        id: true 
-                    },
-                },
+                    select: {
+                        id: true
+                    }
+                }
             },
             skip,
             take: offset

@@ -1,5 +1,5 @@
-import { Subscription } from "@prisma/client";
-import { SubscriptionsRepository } from "@/repositories/subscriptions-repository";
+import { Subscription } from '@prisma/client';
+import { SubscriptionsRepository } from 'src/repositories/subscriptions-repository';
 
 interface GetPaginatedSubscriptionsUseCaseRequest {
     page: number;

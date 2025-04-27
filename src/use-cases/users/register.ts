@@ -1,7 +1,7 @@
-import { UsersRepository } from "@/repositories/users-repository";
-import { hash } from "bcryptjs";
-import { UserAlreadyExistsError } from "../errors/user-already-exists-error";
-import { User } from "@prisma/client";
+import { hash } from 'bcryptjs';
+import { UserAlreadyExistsError } from '../errors/user-already-exists-error';
+import { User } from '@prisma/client';
+import { UsersRepository } from 'src/repositories/users-repository';
 
 interface RegisterUseCaseRequest {
     name: string;

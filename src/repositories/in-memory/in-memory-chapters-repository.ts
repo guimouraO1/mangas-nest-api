@@ -1,5 +1,5 @@
-import { ChaptersRepository } from "../chapters-repository";
-import { Chapter } from "@prisma/client";
+import { ChaptersRepository } from '../chapters-repository';
+import { Chapter } from '@prisma/client';
 
 export class InMemoryChaptersRepository implements ChaptersRepository {
     public chapters: Chapter[] = [];

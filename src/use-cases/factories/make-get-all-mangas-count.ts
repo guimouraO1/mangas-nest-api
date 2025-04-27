@@ -1,5 +1,5 @@
-import { PrismaMangasRepository } from "@/repositories/prisma/prisma-mangas-repository";
-import { GetAllMangasCountUseCase } from "../mangas/get-all-mangas-count";
+import { PrismaMangasRepository } from 'src/repositories/prisma/prisma-mangas-repository';
+import { GetAllMangasCountUseCase } from '../mangas/get-all-mangas-count';
 
 export function makeGetAllMangasCountUseCase() {
     const mangasRepository = new PrismaMangasRepository();

@@ -1,5 +1,5 @@
-import { Manga } from "@prisma/client";
-import { MangasRepository } from "@/repositories/mangas-repository";
+import { Manga } from '@prisma/client';
+import { MangasRepository } from 'src/repositories/mangas-repository';
 
 interface GetPaginatedMangasUseCaseRequest {
     page: number;

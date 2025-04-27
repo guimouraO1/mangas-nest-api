@@ -1,9 +1,9 @@
-import { describe } from "node:test";
-import { beforeEach, expect, it } from "vitest";
-import { InMemoryUsersRepository } from "@/repositories/in-memory/in-memory-users-repository";
-import { hash } from "bcryptjs";
-import { InvalidCredentialsError } from "../errors/invalid-credentials-error";
-import { AuthenticateUseCase } from "./authenticate";
+import { describe } from 'node:test';
+import { beforeEach, expect, it } from 'vitest';
+import { hash } from 'bcryptjs';
+import { InvalidCredentialsError } from '../errors/invalid-credentials-error';
+import { AuthenticateUseCase } from './authenticate';
+import { InMemoryUsersRepository } from 'src/repositories/in-memory/in-memory-users-repository';
 
 interface AuthenticateUserRequest {
     email: string;
@@ -14,23 +14,23 @@ let usersRepository: InMemoryUsersRepository;
 let sut: AuthenticateUseCase;
 let testUser: AuthenticateUserRequest;
 
-describe("Authenticate use case", () => {
+describe('Authenticate use case', () => {
     beforeEach(() => {
         usersRepository = new InMemoryUsersRepository();
         sut = new AuthenticateUseCase(usersRepository);
 
         testUser = {
-            email: "Jhondoe@example.com",
-            password: "123456"
+            email: 'Jhondoe@example.com',
+            password: '123456'
         };
     });
 
-    it("should be able to authenticate", async () => {
+    it('should be able to authenticate', async () => {
         await usersRepository.create({
-            name: "Jhon Doe",
+            name: 'Jhon Doe',
             email: testUser.email,
             password_hash: await hash(testUser.password, 6),
-            username: "Jhondoe"
+            username: 'Jhondoe'
         });
 
         const { user } = await sut.execute(testUser);
@@ -38,16 +38,16 @@ describe("Authenticate use case", () => {
         expect(user.id).toEqual(expect.any(String));
     });
 
-    it("should not be able to authenticate with wrong email", async () => {
+    it('should not be able to authenticate with wrong email', async () => {
         await expect(() => sut.execute(testUser)).rejects.toBeInstanceOf(InvalidCredentialsError);
     });
 
-    it("should not be able to authenticate with wrong email", async () => {
+    it('should not be able to authenticate with wrong email', async () => {
         await usersRepository.create({
-            name: "Jhon Doe",
+            name: 'Jhon Doe',
             email: testUser.email,
-            password_hash: await hash("WrongPassword", 6),
-            username: "Jhondoe"
+            password_hash: await hash('WrongPassword', 6),
+            username: 'Jhondoe'
         });
 
         await expect(() => sut.execute(testUser)).rejects.toBeInstanceOf(InvalidCredentialsError);

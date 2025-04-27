@@ -1,6 +1,6 @@
-import { makeUnsubscribeMangaUseCase } from "@/use-cases/factories/make-unsubscribe-manga";
-import { FastifyRequest, FastifyReply } from "fastify";
-import { z } from "zod";
+import { FastifyRequest, FastifyReply } from 'fastify';
+import { makeUnsubscribeMangaUseCase } from 'src/use-cases/factories/make-unsubscribe-manga';
+import { z } from 'zod';
 
 export async function unsubscribeManga(request: FastifyRequest, reply: FastifyReply) {
     const unsubscribeMangaBodySchema = z.object({
@@ -16,6 +16,6 @@ export async function unsubscribeManga(request: FastifyRequest, reply: FastifyRe
 
         return reply.status(200).send({});
     } catch (error) {
-        throw new Error("");
+        throw new Error('');
     }
 }
