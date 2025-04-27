@@ -9,7 +9,7 @@ export async function authorizeOwnerOrAdminParams(request: FastifyRequest, reply
     }
 
     const getSubscriptionByIdUseCase = MakeGetSubscriptionByIdUseCase();
-    const subscription = await getSubscriptionByIdUseCase.execute({ subscriptionId: data.subscriptionId });
+    const subscription = await getSubscriptionByIdUseCase.execute(data.subscriptionId);
 
     if (!subscription) {
         return reply.status(404).send({ message: 'Subscription not found' });

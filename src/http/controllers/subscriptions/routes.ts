@@ -1,180 +1,75 @@
-import { z } from 'zod';
 import { getUserPaginatedSubscriptions } from './get-paginated-subscriptions.controller';
-import { subscribeManga } from './subscribe-manga.controller';
-import { unsubscribeManga } from './unsubscribe-manga.controller';
 import { verifyJwt } from 'src/http/middlewares/verify-jwt';
 import { FastifyTypedInstance } from 'src/@types/fastify-type';
+import { BadRequestSchema } from 'src/utils/validators/errors/bad-request-schema';
+import { ForbiddenSchema } from 'src/utils/validators/errors/forbidden-schema';
+import { InternalServerErrorSchema } from 'src/utils/validators/errors/internal-server-error-schema';
+import { UnauthorizedSchema } from 'src/utils/validators/errors/unauthorized-schema';
+import { GetPaginatedSubscriptionsRequestZod, GetPaginatedSubscriptionsResponseZod } from 'src/utils/validators/subscriptions/get-subscriptions-schema';
+import { CreatedSchema } from 'src/utils/validators/default-responses/created-schema';
+import { subscribeManga } from './subscribe-manga.controller';
+import { SubscribeRequestZod } from 'src/utils/validators/subscriptions/subscribe-schema';
+import { ConflictSchema } from 'src/utils/validators/errors/conflict-schema';
+import { authorizeOwnerOrAdminParams } from 'src/http/middlewares/authorize-owner-or-admin-params';
+import { unsubscribeManga } from './unsubscribe-manga.controller';
+import { UnsubscribeZod } from 'src/utils/validators/subscriptions/unsubscribe-schema';
 
 export async function subscriptionsRoutes(app: FastifyTypedInstance) {
-    app.get(
-        '/subscriptions',
+    app.get('/subscriptions',
         {
             onRequest: [verifyJwt],
             schema: {
                 description: 'Get Paginated Subscriptions',
                 tags: ['subscriptions'],
-                security: [
-                    {
-                        BearerAuth: []
-                    }
-                ],
-                querystring: z.object({
-                    page: z.string(),
-                    offset: z.string()
-                }),
+                security: [ { BearerAuth: [] } ],
+                querystring: GetPaginatedSubscriptionsRequestZod,
                 response: {
-                    200: z
-                        .object({
-                            subscriptions: z.array(
-                                z.object({
-                                    id: z.string(),
-                                    userId: z.string(),
-                                    mangaId: z.string(),
-                                    rating: z.number(),
-                                    manga: z
-                                        .object({
-                                            id: z.string(),
-                                            name: z.string(),
-                                            date: z.string(),
-                                            url: z.string(),
-                                            about: z.string().nullable(),
-                                            createdAt: z.date(),
-                                            updatedAt: z.date()
-                                        })
-                                        .optional()
-                                        .nullable(),
-                                    chapters: z
-                                        .array(
-                                            z.object({
-                                                id: z.string(),
-                                                subscriptionId: z.string(),
-                                                number: z.number()
-                                            })
-                                        )
-                                        .optional()
-                                        .nullable()
-                                })
-                            )
-                        })
-                        .describe('Successfully Get Paginated Subscriptions'),
-                    400: z
-                        .object({
-                            message: z.string(),
-                            issues: z.array(
-                                z.object({
-                                    errorCode: z.string(),
-                                    field: z.string(),
-                                    message: z.string()
-                                })
-                            )
-                        })
-                        .describe('Bad Request'),
-                    401: z
-                        .object({
-                            message: z.string()
-                        })
-                        .describe('Unauthorized'),
-                    403: z
-                        .object({
-                            message: z.string()
-                        })
-                        .describe('Forbidden'),
-                    500: z
-                        .object({
-                            message: z.string()
-                        })
-                        .describe('Internal Server Error')
+                    200: GetPaginatedSubscriptionsResponseZod,
+                    400: BadRequestSchema,
+                    401: UnauthorizedSchema,
+                    403: ForbiddenSchema,
+                    500: InternalServerErrorSchema
                 }
             }
         },
         getUserPaginatedSubscriptions
     );
 
-    app.post(
-        '/subscriptions',
+    app.post('/subscriptions',
         {
             onRequest: [verifyJwt],
             schema: {
                 description: 'Subscribe manga',
                 tags: ['subscriptions'],
-                security: [
-                    {
-                        BearerAuth: []
-                    }
-                ],
-                body: z.object({
-                    mangaId: z.string(),
-                    rating: z.number()
-                }),
+                security: [ { BearerAuth: [] } ],
+                body: SubscribeRequestZod,
                 response: {
-                    200: z.object({}).describe('Successfully subscribed to a manga'),
-                    400: z
-                        .object({
-                            message: z.string(),
-                            issues: z.array(
-                                z.object({
-                                    errorCode: z.string(),
-                                    field: z.string(),
-                                    message: z.string()
-                                })
-                            )
-                        })
-                        .describe('Bad Request'),
-                    401: z
-                        .object({
-                            message: z.string()
-                        })
-                        .describe('Unauthorized'),
-                    500: z
-                        .object({
-                            message: z.string()
-                        })
-                        .describe('Internal Server Error')
+                    201: CreatedSchema.describe('Successfully subscribed to a manga'),
+                    400: BadRequestSchema,
+                    401: UnauthorizedSchema,
+                    403: ForbiddenSchema,
+                    409: ConflictSchema,
+                    500: InternalServerErrorSchema
                 }
             }
         },
         subscribeManga
     );
 
-    app.delete(
-        '/subscriptions/:subscriptionId',
+    app.delete('/subscriptions/:subscriptionId',
         {
-            onRequest: [verifyJwt],
+            onRequest: [verifyJwt, authorizeOwnerOrAdminParams],
             schema: {
                 description: 'Unsubscribe manga',
                 tags: ['subscriptions'],
-                security: [
-                    {
-                        BearerAuth: []
-                    }
-                ],
-                params: z.object({
-                    subscriptionId: z.string()
-                }),
+                security: [ { BearerAuth: [] } ],
+                params: UnsubscribeZod,
                 response: {
-                    200: z.object({}).describe('Successfully unsubscribe a manga'),
-                    400: z
-                        .object({
-                            message: z.string(),
-                            issues: z.array(
-                                z.object({
-                                    errorCode: z.string(),
-                                    field: z.string(),
-                                    message: z.string()
-                                })
-                            )
-                        })
-                        .describe('Bad Request'),
-                    401: z
-                        .object({
-                            message: z.string()
-                        })
-                        .describe('Unauthorized'),
-                    500: z
-                        .object({
-                            message: z.string()
-                        })
-                        .describe('Internal Server Error')
+                    200: CreatedSchema.describe('Successfully unsubscribe a manga'),
+                    400: BadRequestSchema,
+                    401: UnauthorizedSchema,
+                    403: ForbiddenSchema,
+                    500: InternalServerErrorSchema
                 }
             }
         },

@@ -1,35 +1,24 @@
 import { MangasRepository } from 'src/repositories/mangas-repository';
 import { SubscriptionsRepository } from 'src/repositories/subscriptions-repository';
-import { ResourceNotFoundError } from '../../utils/errors/resource-not-found-error';
-
-interface SubscribeMangaUseCaseRequest {
-    userId: string;
-    mangaId: string;
-    rating: number;
-}
-
-interface SubscribeMangaUseCaseResponse {
-    userId: string;
-    mangaId: string;
-    rating: number;
-    id: string;
-}
+import { Subscribe } from 'src/utils/validators/subscriptions/subscribe-schema';
+import { MangaNotFoundError } from 'src/utils/errors/manga-not-found-error';
+import { AlreadySubscribedError } from 'src/utils/errors/already-subscribed-error';
 
 export class SubscribeMangaUseCase {
-    constructor(
-        private subscriptionsRepository: SubscriptionsRepository,
-        private mangasRepository: MangasRepository
-    ) {}
+    constructor(private subscriptionsRepository: SubscriptionsRepository, private mangasRepository: MangasRepository) {}
 
-    async execute({ userId, mangaId, rating }: SubscribeMangaUseCaseRequest): Promise<SubscribeMangaUseCaseResponse> {
-        const mangasExists = await this.mangasRepository.getMangaById({ mangaId });
-
+    async execute({ userId, mangaId, rating }: Subscribe) {
+        const mangasExists = await this.mangasRepository.getMangaById(mangaId);
         if (!mangasExists) {
-            throw new ResourceNotFoundError();
+            throw new MangaNotFoundError();
+        }
+
+        const alreadySubscribed = await this.subscriptionsRepository.getSubscriptionByUserId(userId, mangaId);
+        if(alreadySubscribed) {
+            throw new AlreadySubscribedError();
         }
 
         const subscription = await this.subscriptionsRepository.subscribe({ userId, mangaId, rating });
-
         return subscription;
     }
 }

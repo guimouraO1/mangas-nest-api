@@ -1,57 +1,58 @@
 import { prisma } from 'src/lib/prisma';
-import { SubscriptionsRepository } from '../subscriptions-repository';
+import { Subscription, SubscriptionsRepository } from '../subscriptions-repository';
 import { LAST_CHAPTERS_OFFSEET } from '../../utils/constants/default-offset-chapters';
+import { GetPaginatedSubscriptions } from 'src/utils/validators/subscriptions/get-subscriptions-schema';
+import { Subscribe } from 'src/utils/validators/subscriptions/subscribe-schema';
 
 export class PrismaSubscriptionsRepository implements SubscriptionsRepository {
-
-    async getSubscriptionById({ subscriptionId }: { subscriptionId: string; }) {
+    async getSubscriptionById(subscriptionId: string) {
         const subscription = await prisma.subscription.findUnique({ where: { id: subscriptionId } });
-
         return subscription;
     }
 
-    async unsubscribe({ subscriptionId }: { subscriptionId: string; }) {
+    async unsubscribe(subscriptionId: string) {
         const unsubscribe = await prisma.subscription.delete({ where: { id: subscriptionId } });
-
         return unsubscribe;
     }
 
-    async getUserSubscriptionsCount({ userId }: { userId: string }) {
-        const subscriptionsCount = await prisma.subscription.count({
-            where: {
-                userId
-            }
-        });
-
-        return subscriptionsCount;
+    async subscribe(data: Subscribe) {
+        const subscription = await prisma.subscription.create({ data });
+        return subscription;
     }
 
-    async subscribe(data: { userId: string, mangaId: string, rating: number }) {
-        const subscription = await prisma.subscription.create({ data });
+    async getSubscriptionByUserId(userId: string, mangaId: string) {
+        const subscription = await prisma.subscription.findUnique({
+            where: {
+                userId_mangaId: {
+                    userId,
+                    mangaId
+                }
+            }
+        });
 
         return subscription;
     }
 
-    async getPaginatedSubscriptions({ page, offset, userId }: { page: number; offset: number; userId: string; }) {
+    async getPaginatedSubscriptions({ page, offset, userId }: GetPaginatedSubscriptions) {
         const skip = (page - 1) * offset;
 
         const subscriptions = await prisma.subscription.findMany({
-            where: {
-                userId
-            },
+            where: { userId },
             include: {
                 manga: true,
                 chapters: {
                     take: LAST_CHAPTERS_OFFSEET,
-                    orderBy: {
-                        number: 'desc'
-                    }
+                    orderBy: { number: 'desc' }
                 }
             },
             skip,
             take: offset
         });
 
-        return subscriptions;
+        const subscriptionsCount = await prisma.subscription.count({
+            where: { userId }
+        });
+
+        return { subscriptions, subscriptionsCount };
     }
 }

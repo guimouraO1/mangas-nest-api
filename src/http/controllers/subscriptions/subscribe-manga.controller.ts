@@ -1,22 +1,26 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
 import { makeSubscribeMangaUseCase } from 'src/use-cases/_factories/make-subscribe-manga';
-import { z } from 'zod';
+import { AlreadySubscribedError } from 'src/utils/errors/already-subscribed-error';
+import { MangaNotFoundError } from 'src/utils/errors/manga-not-found-error';
+import { SubscribeRequestType } from 'src/utils/validators/subscriptions/subscribe-schema';
 
 export async function subscribeManga(request: FastifyRequest, reply: FastifyReply) {
-    const subscribeMangaBodySchema = z.object({
-        mangaId: z.string(),
-        rating: z.number()
-    });
-
-    const { mangaId, rating } = subscribeMangaBodySchema.parse(request.body);
+    const { mangaId, rating } = request.body as SubscribeRequestType;
 
     try {
         const subscribeMangaUseCase = makeSubscribeMangaUseCase();
-
         await subscribeMangaUseCase.execute({ userId: request.user.sub, mangaId, rating });
 
-        return reply.status(200).send({});
+        return reply.status(201).send({});
     } catch (error) {
-        throw new Error('');
+        if (error instanceof MangaNotFoundError) {
+            return reply.status(404).send({ message: error.message });
+        }
+
+        if (error instanceof AlreadySubscribedError) {
+            return reply.status(409).send({ message: error.message });
+        }
+
+        throw error;
     }
 }

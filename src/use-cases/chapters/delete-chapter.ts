@@ -8,7 +8,7 @@ export class DeleteChapterUseCase {
     constructor(private chaptersRepository: ChaptersRepository, private subscriptionsRepository: SubscriptionsRepository) {}
 
     async execute({ subscriptionId, number }: DeleteChapterRequestBody) {
-        const subscription = await this.subscriptionsRepository.getSubscriptionById({ subscriptionId });
+        const subscription = await this.subscriptionsRepository.getSubscriptionById(subscriptionId);
 
         if (!subscription) {
             throw new SubscriptionNotFoundError();
