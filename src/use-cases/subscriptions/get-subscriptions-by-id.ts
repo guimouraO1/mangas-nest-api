@@ -3,8 +3,8 @@ import { SubscriptionsRepository } from 'src/repositories/subscriptions-reposito
 export class GetSubscriptionByIdUseCase {
     constructor(private subscriptionsRepository: SubscriptionsRepository) {}
 
-    async execute({ subscriptionId }: { subscriptionId: string }) {
-        const subscription = await this.subscriptionsRepository.getSubscriptionById({ subscriptionId });
+    async execute(subscriptionId: string) {
+        const subscription = await this.subscriptionsRepository.getSubscriptionById(subscriptionId);
         return subscription;
     }
 }

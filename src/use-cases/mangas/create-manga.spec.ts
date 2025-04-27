@@ -1,35 +1,26 @@
-// import { describe } from 'node:test';
-// import { beforeEach, expect, it } from 'vitest';
-// import { CreateMangaUseCase } from './create-manga';
-// import { WeekDay } from '@prisma/client';
-// import { InMemoryMangasRepository } from 'src/repositories/in-memory/in-memory-mangas-repository';
+import { beforeEach, describe, expect, it } from 'vitest';
+import { CreateMangaUseCase } from './create-manga';
+import { InMemoryMangasRepository } from 'src/repositories/in-memory/in-memory-mangas-repository';
+import { FAKE_MANGA } from 'src/utils/constants/fake-manga';
 
-// interface CreateMangaUseCaseRequest {
-//     name: string;
-//     url: string;
-//     date: WeekDay;
-// }
+let mangasRepository: InMemoryMangasRepository;
+let sut: CreateMangaUseCase;
 
-// let mangasRepository: InMemoryMangasRepository;
-// let sut: CreateMangaUseCase;
-// let request: CreateMangaUseCaseRequest;
+describe('Create Manga use case', () => {
+    beforeEach(() => {
+        mangasRepository = new InMemoryMangasRepository();
+        sut = new CreateMangaUseCase(mangasRepository);
+    });
 
-// describe('Create Manga use case', () => {
-//     beforeEach(() => {
-//         mangasRepository = new InMemoryMangasRepository();
-//         sut = new CreateMangaUseCase(mangasRepository);
+    it('should be able to create a new manga', async () => {
+        const manga = await sut.execute({
+            name: FAKE_MANGA.name,
+            url: FAKE_MANGA.name,
+            date: FAKE_MANGA.date
+        });
 
-//         request = {
-//             name: 'Sousou no Frieren',
-//             url: 'http://teste.com/frieren.png',
-//             date: 'fri'
-//         };
-//     });
-
-//     it('should be able to create a new manga', async () => {
-//         const { manga } = await sut.execute(request);
-
-//         expect(manga.url).equal('http://teste.com/frieren.png');
-//         expect(manga.name).equal('Sousou no Frieren');
-//     });
-// });
+        expect(manga.url).equal(FAKE_MANGA.url);
+        expect(manga.name).equal(FAKE_MANGA.name);
+        expect(manga.date).equal(FAKE_MANGA.date);
+    });
+});
