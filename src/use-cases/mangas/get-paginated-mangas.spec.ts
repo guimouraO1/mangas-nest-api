@@ -2,6 +2,7 @@ import { beforeEach, describe, expect, it } from 'vitest';
 import { GetPaginatedMangasUseCase } from './get-paginated-mangas';
 import { InMemoryMangasRepository } from 'src/repositories/in-memory/in-memory-mangas-repository';
 import { FAKE_MANGA } from 'src/utils/constants/fake-manga';
+import { FAKE_USER } from 'src/utils/constants/fake-user';
 
 let mangasRepository: InMemoryMangasRepository;
 let sut: GetPaginatedMangasUseCase;
@@ -27,7 +28,8 @@ describe('Get Paginated Mangas use case', () => {
 
         const { mangas, mangasCount } = await sut.execute({
             page: 1,
-            offset: 1
+            offset: 1,
+            userId: FAKE_USER.id
         });
 
         expect(Array.isArray(mangas)).toBe(true);

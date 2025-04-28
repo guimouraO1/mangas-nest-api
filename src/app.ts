@@ -27,7 +27,6 @@ app.setSerializerCompiler(serializerCompiler);
 app.register(fastifyJwt, jwtConfig);
 app.register(fastifyCookie, { secret: env.COOKIE_SECRET });
 app.register(fastifyCors, { origin: true, credentials: true });
-
 app.register(fastifySwagger, fastifySwaggerConfig);
 
 app.register(fastifySwaggerUi, { routePrefix: '/docs' });

@@ -4,11 +4,11 @@ import { SubscriptionNotFoundError } from 'src/utils/errors/subscription-not-fou
 import { Unsubscribe } from 'src/utils/validators/subscriptions/unsubscribe-schema';
 
 export async function unsubscribeManga(request: FastifyRequest, reply: FastifyReply) {
-    const { subscriptionId } = request.params as Unsubscribe;
+    const { mangaId } = request.params as Unsubscribe;
 
     try {
         const unsubscribeMangaUseCase = makeUnsubscribeMangaUseCase();
-        await unsubscribeMangaUseCase.execute(subscriptionId);
+        await unsubscribeMangaUseCase.execute(mangaId, request.user.sub);
 
         return reply.status(200).send({});
     } catch (error) {

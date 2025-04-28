@@ -14,6 +14,6 @@ export type Manga = {
 
 export interface MangasRepository {
     create(data: CreateMangaType): Promise<Manga>;
-    getPaginatedMangas({ page, offset }: GetPaginatedMangas): Promise<GetPaginatedMangasResponse>;
+    getPaginatedMangas({ page, offset, userId }: GetPaginatedMangas): Promise<GetPaginatedMangasResponse>;
     getMangaById(id: string): Promise<Manga | null>;
 }

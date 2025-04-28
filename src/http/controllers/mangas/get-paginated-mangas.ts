@@ -6,7 +6,7 @@ export async function getPaginatedMangas(request: FastifyRequest, reply: Fastify
     const { page, offset } = request.query as GetPaginatedMangas;
     try {
         const getMangaUseCase = makeGetPaginatedMangasUseCase();
-        const mangas = await getMangaUseCase.execute({ page: +page, offset: +offset });
+        const mangas = await getMangaUseCase.execute({ page: +page, offset: +offset, userId: request.user.sub });
         return reply.status(200).send(mangas);
     } catch (error) {
         throw new Error('');

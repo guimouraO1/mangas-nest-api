@@ -1,5 +1,6 @@
 import '@fastify/jwt';
-import { Role } from '@prisma/client';
+
+type Role = 'user' | 'admin';
 
 declare module '@fastify/jwt' {
     export interface FastifyJWT {

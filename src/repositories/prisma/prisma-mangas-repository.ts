@@ -14,15 +14,30 @@ export class PrismaMangasRepository implements MangasRepository {
         return manga;
     }
 
-    async getPaginatedMangas({ page, offset }: GetPaginatedMangas) {
+    async getPaginatedMangas({ page, offset, userId }: GetPaginatedMangas) {
         const skip = (page - 1) * offset;
 
         const mangas = await prisma.manga.findMany({
+            include: {
+                subscriptions: {
+                    where: {
+                        userId
+                    },
+                    select: {
+                        id: true
+                    }
+                }
+            },
             skip,
             take: offset
         });
 
+        const mangasWithSubs = mangas.map(manga => ({
+            ...manga,
+            subscribed: manga.subscriptions.length > 0
+        }));
+
         const mangasCount = await prisma.manga.count();
-        return { mangas, mangasCount };
+        return { mangas: mangasWithSubs, mangasCount };
     }
 }

@@ -4,14 +4,10 @@ import { env } from 'src/lib/env';
 
 export function errorHandler(error: any, request: FastifyRequest, reply: FastifyReply) {
     if (error.validation) {
-        console.log(error);
         return reply.status(400).send({
             message: 'Bad request',
             status: 400,
-            errors: error.validation.map((err: any) => ({
-                key: err.params?.missingProperty,
-                value: err.message
-            }))
+            errors: error.message
         });
     }
 

@@ -6,7 +6,9 @@ export const GetPaginatedMangasRequestZod = PaginationRequestZod.extend({}); //m
 
 export type GetPaginatedMangasRequest = z.infer<typeof GetPaginatedMangasRequestZod>;
 
-export const GetPaginatedMangasZod = Pagination.extend({}); // Esse
+export const GetPaginatedMangasZod = Pagination.extend({
+    userId: z.string()
+}); // Esse
 
 export type GetPaginatedMangas = z.infer<typeof GetPaginatedMangasZod>;
 
@@ -19,7 +21,8 @@ export const GetPaginatedMangasResponseZod = z.object({
                 url: z.string(),
                 about: z.string().nullable(),
                 createdAt: z.date(),
-                updatedAt: z.date()
+                updatedAt: z.date(),
+                subscribed: z.boolean()
             })),
     mangasCount: z.number()
 });

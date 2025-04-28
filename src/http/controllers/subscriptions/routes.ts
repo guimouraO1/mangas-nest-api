@@ -56,9 +56,9 @@ export async function subscriptionsRoutes(app: FastifyTypedInstance) {
         subscribeManga
     );
 
-    app.delete('/subscriptions/:subscriptionId',
+    app.delete('/subscriptions/:mangaId',
         {
-            onRequest: [verifyJwt, authorizeOwnerOrAdminParams],
+            onRequest: [verifyJwt],
             schema: {
                 description: 'Unsubscribe manga',
                 tags: ['subscriptions'],
