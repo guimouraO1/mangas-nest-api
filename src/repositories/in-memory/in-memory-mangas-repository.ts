@@ -19,7 +19,7 @@ export class InMemoryMangasRepository implements MangasRepository {
 
         const mangasWithSubs = mangas.map(manga => ({
             ...manga,
-            subscribed: manga.subscriptions!.some(sub => sub.userId === userId) ?? false
+            subscribed: manga.subscriptions?.some(sub => sub.userId === userId) ?? false
         }));
 
         return { mangas: mangasWithSubs, mangasCount };

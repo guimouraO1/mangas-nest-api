@@ -15,7 +15,7 @@ describe('Create Manga use case', () => {
     it('should be able to create a new manga', async () => {
         const manga = await sut.execute({
             name: FAKE_MANGA.name,
-            url: FAKE_MANGA.name,
+            url: FAKE_MANGA.url,
             date: FAKE_MANGA.date
         });
 

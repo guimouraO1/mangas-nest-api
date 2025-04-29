@@ -16,7 +16,7 @@ describe('Get Paginated Mangas use case', () => {
     it('should be able to get paginated mangas', async () => {
         await mangasRepository.create({
             name: FAKE_MANGA.name,
-            url: FAKE_MANGA.name,
+            url: FAKE_MANGA.url,
             date: FAKE_MANGA.date
         });
 
