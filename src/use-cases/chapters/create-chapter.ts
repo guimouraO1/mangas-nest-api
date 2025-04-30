@@ -1,6 +1,6 @@
-import { ChaptersRepository } from 'src/repositories/chapters-repository';
-import { SubscriptionsRepository } from 'src/repositories/subscriptions-repository';
-import { CreateChapterRequestBody } from 'src/utils/validators/chapters/create-chapter-schema';
+import { ChaptersRepository } from '../../repositories/chapters-repository';
+import { SubscriptionsRepository } from '../../repositories/subscriptions-repository';
+import { CreateChapterRequestBody } from '../../utils/validators/chapters/create-chapter-schema';
 import { SubscriptionNotFoundError } from '../../utils/errors/subscription-not-fount-error';
 import { ChapterAlreadyExistsError } from '../../utils/errors/chapter-already-exists-error';
 

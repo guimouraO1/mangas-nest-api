@@ -1,5 +1,5 @@
-import { GetPaginatedSubscriptions, GetPaginatedSubscriptionsResponse } from 'src/utils/validators/subscriptions/get-subscriptions-schema';
-import { Subscribe } from 'src/utils/validators/subscriptions/subscribe-schema';
+import { GetPaginatedSubscriptions, GetPaginatedSubscriptionsResponse } from '../utils/validators/subscriptions/get-subscriptions-schema';
+import { Subscribe } from '../utils/validators/subscriptions/subscribe-schema';
 
 export type Subscription = {
     id: string;

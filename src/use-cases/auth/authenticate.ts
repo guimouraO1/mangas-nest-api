@@ -1,6 +1,6 @@
 import { compare } from 'bcryptjs';
 import { UsersRepository } from '../../repositories/users-repository';
-import { AuthenticateRequestBody } from 'src/utils/validators/auth/sign-in.schema';
+import { AuthenticateRequestBody } from '../../utils/validators/auth/sign-in.schema';
 import { UserNotFound } from '../../utils/errors/user-not-found';
 import { InvalidPasswordError } from '../../utils/errors/invalid-password-error';
 

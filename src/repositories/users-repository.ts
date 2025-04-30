@@ -1,4 +1,4 @@
-import { CreateUserRequestSchemaPasswordHash } from 'src/utils/validators/user/create-user-schema';
+import { CreateUserRequestSchemaPasswordHash } from '../utils/validators/user/create-user-schema';
 
 type Role = 'user' | 'admin'
 export type User = {

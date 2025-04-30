@@ -1,7 +1,7 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { makeUnsubscribeMangaUseCase } from 'src/use-cases/_factories/make-unsubscribe-manga';
-import { SubscriptionNotFoundError } from 'src/utils/errors/subscription-not-fount-error';
-import { Unsubscribe } from 'src/utils/validators/subscriptions/unsubscribe-schema';
+import { makeUnsubscribeMangaUseCase } from '../../../use-cases/_factories/make-unsubscribe-manga';
+import { SubscriptionNotFoundError } from '../../../utils/errors/subscription-not-fount-error';
+import { Unsubscribe } from '../../../utils/validators/subscriptions/unsubscribe-schema';
 
 export async function unsubscribeManga(request: FastifyRequest, reply: FastifyReply) {
     const { mangaId } = request.params as Unsubscribe;

@@ -1,4 +1,4 @@
-import { CreateUserRequestSchemaPasswordHash, CreateUserRequestSchemaType } from 'src/utils/validators/user/create-user-schema';
+import { CreateUserRequestSchemaPasswordHash, CreateUserRequestSchemaType } from '../../utils/validators/user/create-user-schema';
 import { User, UsersRepository } from '../users-repository';
 import { randomUUID } from 'node:crypto';
 

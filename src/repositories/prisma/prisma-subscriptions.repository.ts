@@ -1,8 +1,8 @@
-import { prisma } from 'src/lib/prisma';
+import { prisma } from '../../lib/prisma';
 import { Subscription, SubscriptionsRepository } from '../subscriptions-repository';
 import { LAST_CHAPTERS_OFFSEET } from '../../utils/constants/default-offset-chapters';
-import { GetPaginatedSubscriptions } from 'src/utils/validators/subscriptions/get-subscriptions-schema';
-import { Subscribe } from 'src/utils/validators/subscriptions/subscribe-schema';
+import { GetPaginatedSubscriptions } from '../../utils/validators/subscriptions/get-subscriptions-schema';
+import { Subscribe } from '../../utils/validators/subscriptions/subscribe-schema';
 
 export class PrismaSubscriptionsRepository implements SubscriptionsRepository {
     async getSubscriptionById(subscriptionId: string) {

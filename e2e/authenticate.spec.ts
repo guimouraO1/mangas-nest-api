@@ -1,7 +1,7 @@
 import { afterAll, beforeAll, describe, expect, it } from 'vitest';
 import request from 'supertest';
-import app from 'src/app';
-import { FAKE_USER, FAKE_USER_SIGN_IN } from 'src/utils/constants/fake-user';
+import app from '../src/app';
+import { FAKE_USER, FAKE_USER_SIGN_IN } from '../src/utils/constants/fake-user';
 
 describe('Authenticate e2e', () => {
     beforeAll(async () => {

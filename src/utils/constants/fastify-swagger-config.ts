@@ -1,5 +1,5 @@
 import { jsonSchemaTransform } from 'fastify-type-provider-zod';
-import { env } from 'src/lib/env';
+import { env } from '../../lib/env';
 
 export const fastifySwaggerConfig = {
     openapi: {

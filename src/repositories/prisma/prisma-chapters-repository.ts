@@ -1,8 +1,8 @@
-import { prisma } from 'src/lib/prisma';
+import { prisma } from '../../lib/prisma';
 import { ChaptersRepository } from '../chapters-repository';
-import { CreateChapterRequestBody } from 'src/utils/validators/chapters/create-chapter-schema';
-import { DeleteChapterRequestBody } from 'src/utils/validators/chapters/delete-chapter-schema';
-import { GetChapterRequestBody } from 'src/utils/validators/chapters/get-chapter-schema';
+import { CreateChapterRequestBody } from '../../utils/validators/chapters/create-chapter-schema';
+import { DeleteChapterRequestBody } from '../../utils/validators/chapters/delete-chapter-schema';
+import { GetChapterRequestBody } from '../../utils/validators/chapters/get-chapter-schema';
 
 export class PrismaChaptersRepository implements ChaptersRepository {
     async get(data: GetChapterRequestBody) {

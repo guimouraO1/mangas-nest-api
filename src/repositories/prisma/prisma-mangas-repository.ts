@@ -1,7 +1,7 @@
-import { prisma } from 'src/lib/prisma';
+import { prisma } from '../../lib/prisma';
 import { MangasRepository } from '../mangas-repository';
-import { CreateMangaType } from 'src/utils/validators/mangas/create-manga-schema';
-import { GetPaginatedMangas } from 'src/utils/validators/mangas/get-manga-schema';
+import { CreateMangaType } from '../../utils/validators/mangas/create-manga-schema';
+import { GetPaginatedMangas } from '../../utils/validators/mangas/get-manga-schema';
 
 export class PrismaMangasRepository implements MangasRepository {
     async getMangaById(id: string) {

@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
-import { InMemorySubscriptionsRepository } from 'src/repositories/in-memory/in-memory-subscriptions-repository';
-import { FAKE_MANGA } from 'src/utils/constants/fake-manga';
-import { FAKE_USER } from 'src/utils/constants/fake-user';
+import { InMemorySubscriptionsRepository } from '../../repositories/in-memory/in-memory-subscriptions-repository';
+import { FAKE_MANGA } from '../../utils/constants/fake-manga';
+import { FAKE_USER } from '../../utils/constants/fake-user';
 import { GetSubscriptionByIdUseCase } from './get-subscriptions-by-id';
 
 let subscriptionsRepository: InMemorySubscriptionsRepository;

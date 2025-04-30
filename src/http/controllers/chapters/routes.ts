@@ -1,18 +1,18 @@
 import { createChapter } from './create-chapter.controller';
 import { deleteChapter } from './delete-chapter.controller';
-import { FastifyTypedInstance } from 'src/@types/fastify-type';
-import { verifyJwt } from 'src/http/middlewares/verify-jwt';
-import { CreateChapterRequestBodyZod } from 'src/utils/validators/chapters/create-chapter-schema';
-import { CreatedSchema } from 'src/utils/validators/default-responses/created-schema';
-import { BadRequestSchema } from 'src/utils/validators/errors/bad-request-schema';
-import { ForbiddenSchema } from 'src/utils/validators/errors/forbidden-schema';
-import { InternalServerErrorSchema } from 'src/utils/validators/errors/internal-server-error-schema';
-import { NotFoundSchema } from 'src/utils/validators/errors/not-found-schema';
-import { UnauthorizedSchema } from 'src/utils/validators/errors/unauthorized-schema';
-import { authorizeOwnerOrAdminBody } from 'src/http/middlewares/authorize-owner-or-admin-body';
-import { authorizeOwnerOrAdminParams } from 'src/http/middlewares/authorize-owner-or-admin-params';
-import { DeleteChapterRequestBodyZodNumber } from 'src/utils/validators/chapters/delete-chapter-schema';
-import { ConflictSchema } from 'src/utils/validators/errors/conflict-schema';
+import { FastifyTypedInstance } from '../../../@types/fastify-type';
+import { verifyJwt } from '../../../http/middlewares/verify-jwt';
+import { CreateChapterRequestBodyZod } from '../../../utils/validators/chapters/create-chapter-schema';
+import { CreatedSchema } from '../../../utils/validators/default-responses/created-schema';
+import { BadRequestSchema } from '../../../utils/validators/errors/bad-request-schema';
+import { ForbiddenSchema } from '../../../utils/validators/errors/forbidden-schema';
+import { InternalServerErrorSchema } from '../../../utils/validators/errors/internal-server-error-schema';
+import { NotFoundSchema } from '../../../utils/validators/errors/not-found-schema';
+import { UnauthorizedSchema } from '../../../utils/validators/errors/unauthorized-schema';
+import { authorizeOwnerOrAdminBody } from '../../../http/middlewares/authorize-owner-or-admin-body';
+import { authorizeOwnerOrAdminParams } from '../../../http/middlewares/authorize-owner-or-admin-params';
+import { DeleteChapterRequestBodyZodNumber } from '../../../utils/validators/chapters/delete-chapter-schema';
+import { ConflictSchema } from '../../../utils/validators/errors/conflict-schema';
 
 export async function chapterRoutes(app: FastifyTypedInstance) {
     app.post('/chapter',

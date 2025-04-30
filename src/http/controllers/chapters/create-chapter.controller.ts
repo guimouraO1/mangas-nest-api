@@ -1,8 +1,8 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { ChapterAlreadyExistsError } from 'src/utils/errors/chapter-already-exists-error';
-import { SubscriptionNotFoundError } from 'src/utils/errors/subscription-not-fount-error';
-import { makeCreateChapterUseCase } from 'src/use-cases/_factories/make-create-chapter';
-import { CreateChapterRequestBody } from 'src/utils/validators/chapters/create-chapter-schema';
+import { ChapterAlreadyExistsError } from '../../../utils/errors/chapter-already-exists-error';
+import { SubscriptionNotFoundError } from '../../../utils/errors/subscription-not-fount-error';
+import { makeCreateChapterUseCase } from '../../../use-cases/_factories/make-create-chapter';
+import { CreateChapterRequestBody } from '../../../utils/validators/chapters/create-chapter-schema';
 
 export async function createChapter(request: FastifyRequest, reply: FastifyReply) {
     const { subscriptionId, number } = request.body as CreateChapterRequestBody;

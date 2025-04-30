@@ -1,9 +1,9 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { env } from 'src/lib/env';
-import { InvalidPasswordError } from 'src/utils/errors/invalid-password-error';
-import { UserNotFound } from 'src/utils/errors/user-not-found';
-import { makeAuthenticateUseCase } from 'src/use-cases/_factories/make-authenticate-use-case';
-import { AuthenticateRequestBody } from 'src/utils/validators/auth/sign-in.schema';
+import { env } from '../../../lib/env';
+import { InvalidPasswordError } from '../../../utils/errors/invalid-password-error';
+import { UserNotFound } from '../../../utils/errors/user-not-found';
+import { makeAuthenticateUseCase } from '../../../use-cases/_factories/make-authenticate-use-case';
+import { AuthenticateRequestBody } from '../../../utils/validators/auth/sign-in.schema';
 
 export async function signIn(request: FastifyRequest, reply: FastifyReply) {
     const { email, password } = request.body as AuthenticateRequestBody;

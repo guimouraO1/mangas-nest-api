@@ -1,4 +1,4 @@
-import { PrismaSubscriptionsRepository } from 'src/repositories/prisma/prisma-subscriptions.repository';
+import { PrismaSubscriptionsRepository } from '../../repositories/prisma/prisma-subscriptions.repository';
 import { GetSubscriptionByIdUseCase } from '../subscriptions/get-subscriptions-by-id';
 
 export function MakeGetSubscriptionByIdUseCase() {

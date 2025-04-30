@@ -1,4 +1,4 @@
-import { CreateMangaType } from 'src/utils/validators/mangas/create-manga-schema';
+import { CreateMangaType } from '../../utils/validators/mangas/create-manga-schema';
 import { Manga, MangasRepository } from '../mangas-repository';
 import { Subscription } from '../subscriptions-repository';
 

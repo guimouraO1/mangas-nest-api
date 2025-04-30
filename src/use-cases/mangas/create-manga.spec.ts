@@ -1,7 +1,7 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { CreateMangaUseCase } from './create-manga';
-import { InMemoryMangasRepository } from 'src/repositories/in-memory/in-memory-mangas-repository';
-import { FAKE_MANGA } from 'src/utils/constants/fake-manga';
+import { InMemoryMangasRepository } from '../../repositories/in-memory/in-memory-mangas-repository';
+import { FAKE_MANGA } from '../../utils/constants/fake-manga';
 
 let mangasRepository: InMemoryMangasRepository;
 let sut: CreateMangaUseCase;

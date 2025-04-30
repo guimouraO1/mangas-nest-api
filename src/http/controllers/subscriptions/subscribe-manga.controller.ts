@@ -1,8 +1,8 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { makeSubscribeMangaUseCase } from 'src/use-cases/_factories/make-subscribe-manga';
-import { AlreadySubscribedError } from 'src/utils/errors/already-subscribed-error';
-import { MangaNotFoundError } from 'src/utils/errors/manga-not-found-error';
-import { SubscribeRequestType } from 'src/utils/validators/subscriptions/subscribe-schema';
+import { makeSubscribeMangaUseCase } from '../../../use-cases/_factories/make-subscribe-manga';
+import { AlreadySubscribedError } from '../../../utils/errors/already-subscribed-error';
+import { MangaNotFoundError } from '../../../utils/errors/manga-not-found-error';
+import { SubscribeRequestType } from '../../../utils/validators/subscriptions/subscribe-schema';
 
 export async function subscribeManga(request: FastifyRequest, reply: FastifyReply) {
     const { mangaId, rating } = request.body as SubscribeRequestType;

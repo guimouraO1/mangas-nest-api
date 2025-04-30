@@ -1,5 +1,5 @@
-import { MangasRepository } from 'src/repositories/mangas-repository';
-import { CreateMangaType } from 'src/utils/validators/mangas/create-manga-schema';
+import { MangasRepository } from '../../repositories/mangas-repository';
+import { CreateMangaType } from '../../utils/validators/mangas/create-manga-schema';
 
 export class CreateMangaUseCase {
     constructor(private mangasRepository: MangasRepository) {}

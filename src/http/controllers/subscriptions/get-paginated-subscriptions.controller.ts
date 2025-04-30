@@ -1,6 +1,6 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { makeGetPaginatedSubscriptionsUseCase } from 'src/use-cases/_factories/make-get-paginated-subscriptions';
-import { GetPaginatedSubscriptionsRequest } from 'src/utils/validators/subscriptions/get-subscriptions-schema';
+import { makeGetPaginatedSubscriptionsUseCase } from '../../../use-cases/_factories/make-get-paginated-subscriptions';
+import { GetPaginatedSubscriptionsRequest } from '../../../utils/validators/subscriptions/get-subscriptions-schema';
 
 export async function getUserPaginatedSubscriptions(request: FastifyRequest, reply: FastifyReply) {
     const { page, offset } = request.query as GetPaginatedSubscriptionsRequest;

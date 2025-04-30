@@ -1,7 +1,7 @@
-import { GetChapterRequestBody } from 'src/utils/validators/chapters/get-chapter-schema';
+import { GetChapterRequestBody } from '../../utils/validators/chapters/get-chapter-schema';
 import { Chapter, ChaptersRepository } from '../chapters-repository';
-import { CreateChapterRequestBody } from 'src/utils/validators/chapters/create-chapter-schema';
-import { DeleteChapterRequestBody } from 'src/utils/validators/chapters/delete-chapter-schema';
+import { CreateChapterRequestBody } from '../../utils/validators/chapters/create-chapter-schema';
+import { DeleteChapterRequestBody } from '../../utils/validators/chapters/delete-chapter-schema';
 
 export class InMemoryChaptersRepository implements ChaptersRepository {
     public chapters: Chapter[] = [];

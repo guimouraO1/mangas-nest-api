@@ -1,11 +1,11 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { DeleteChapterUseCase } from './delete-chapter';
-import { InMemoryChaptersRepository } from 'src/repositories/in-memory/in-memory-chapters-repository';
-import { InMemoryMangasRepository } from 'src/repositories/in-memory/in-memory-mangas-repository';
-import { InMemorySubscriptionsRepository } from 'src/repositories/in-memory/in-memory-subscriptions-repository';
+import { InMemoryChaptersRepository } from '../../repositories/in-memory/in-memory-chapters-repository';
+import { InMemoryMangasRepository } from '../../repositories/in-memory/in-memory-mangas-repository';
+import { InMemorySubscriptionsRepository } from '../../repositories/in-memory/in-memory-subscriptions-repository';
 import { Manga, User } from '@prisma/client';
-import { FAKE_MANGA } from 'src/utils/constants/fake-manga';
-import { FAKE_USER } from 'src/utils/constants/fake-user';
+import { FAKE_MANGA } from '../../utils/constants/fake-manga';
+import { FAKE_USER } from '../../utils/constants/fake-user';
 import { SubscriptionNotFoundError } from '../../utils/errors/subscription-not-fount-error';
 import { ChapterNotFoundError } from '../../utils/errors/chapter-not-found-error';
 

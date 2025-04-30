@@ -1,6 +1,6 @@
 import { hash } from 'bcryptjs';
-import { UsersRepository } from 'src/repositories/users-repository';
-import { CreateUserRequestSchemaType } from 'src/utils/validators/user/create-user-schema';
+import { UsersRepository } from '../../repositories/users-repository';
+import { CreateUserRequestSchemaType } from '../../utils/validators/user/create-user-schema';
 import { UsernameAlreadyRegistredError } from '../../utils/errors/username-already-registred-error';
 import { EmailAlreadyRegistredError } from '../../utils/errors/email-already-registred-error';
 

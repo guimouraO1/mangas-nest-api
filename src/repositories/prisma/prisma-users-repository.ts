@@ -1,6 +1,6 @@
-import { prisma } from 'src/lib/prisma';
+import { prisma } from '../../lib/prisma';
 import { UsersRepository } from '../users-repository';
-import { CreateUserRequestSchemaPasswordHash } from 'src/utils/validators/user/create-user-schema';
+import { CreateUserRequestSchemaPasswordHash } from '../../utils/validators/user/create-user-schema';
 
 export class PrismaUsersRepository implements UsersRepository {
     async findByUsername(username: string) {

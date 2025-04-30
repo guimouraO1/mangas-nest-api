@@ -1,4 +1,4 @@
-import { env } from 'src/lib/env';
+import { env } from '../../lib/env';
 
 export const jwtConfig = {
     secret: {

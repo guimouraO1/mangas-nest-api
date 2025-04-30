@@ -1,5 +1,5 @@
-import { SubscriptionsRepository } from 'src/repositories/subscriptions-repository';
-import { SubscriptionNotFoundError } from 'src/utils/errors/subscription-not-fount-error';
+import { SubscriptionsRepository } from '../../repositories/subscriptions-repository';
+import { SubscriptionNotFoundError } from '../../utils/errors/subscription-not-fount-error';
 
 export class UnsubscribeMangaUseCase {
     constructor(private subscriptionsRepository: SubscriptionsRepository) {}

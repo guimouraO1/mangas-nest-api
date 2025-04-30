@@ -1,6 +1,6 @@
 
 import { FastifyReply, FastifyRequest } from 'fastify';
-import { env } from 'src/lib/env';
+import { env } from '../lib/env';
 
 export function errorHandler(error: any, request: FastifyRequest, reply: FastifyReply) {
     if (error.validation) {

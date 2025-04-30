@@ -1,8 +1,8 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { GetPaginatedSubscriptionsUseCase } from './get-paginated-subscriptions';
-import { InMemorySubscriptionsRepository } from 'src/repositories/in-memory/in-memory-subscriptions-repository';
-import { FAKE_USER } from 'src/utils/constants/fake-user';
-import { FAKE_MANGA } from 'src/utils/constants/fake-manga';
+import { InMemorySubscriptionsRepository } from '../../repositories/in-memory/in-memory-subscriptions-repository';
+import { FAKE_USER } from '../../utils/constants/fake-user';
+import { FAKE_MANGA } from '../../utils/constants/fake-manga';
 
 let subscriptionsRepository: InMemorySubscriptionsRepository;
 let sut: GetPaginatedSubscriptionsUseCase;

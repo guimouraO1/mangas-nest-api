@@ -1,7 +1,7 @@
-import { ChaptersRepository } from 'src/repositories/chapters-repository';
-import { SubscriptionsRepository } from 'src/repositories/subscriptions-repository';
+import { ChaptersRepository } from '../../repositories/chapters-repository';
+import { SubscriptionsRepository } from '../../repositories/subscriptions-repository';
 import { SubscriptionNotFoundError } from '../../utils/errors/subscription-not-fount-error';
-import { DeleteChapterRequestBody } from 'src/utils/validators/chapters/delete-chapter-schema';
+import { DeleteChapterRequestBody } from '../../utils/validators/chapters/delete-chapter-schema';
 import { ChapterNotFoundError } from '../../utils/errors/chapter-not-found-error';
 
 export class DeleteChapterUseCase {

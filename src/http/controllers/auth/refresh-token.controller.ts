@@ -1,5 +1,5 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { env } from 'src/lib/env';
+import { env } from '../../../lib/env';
 
 export async function refreshToken(request: FastifyRequest, reply: FastifyReply) {
     try {

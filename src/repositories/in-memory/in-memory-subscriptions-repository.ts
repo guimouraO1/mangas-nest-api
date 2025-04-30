@@ -1,6 +1,6 @@
 import { Subscription, SubscriptionsRepository } from '../subscriptions-repository';
-import { Subscribe } from 'src/utils/validators/subscriptions/subscribe-schema';
-import { GetPaginatedSubscriptions } from 'src/utils/validators/subscriptions/get-subscriptions-schema';
+import { Subscribe } from '../../utils/validators/subscriptions/subscribe-schema';
+import { GetPaginatedSubscriptions } from '../../utils/validators/subscriptions/get-subscriptions-schema';
 
 export class InMemorySubscriptionsRepository implements SubscriptionsRepository {
     public subscriptions: Subscription[] = [];

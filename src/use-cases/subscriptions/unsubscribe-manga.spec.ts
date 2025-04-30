@@ -1,10 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { UnsubscribeMangaUseCase } from './unsubscribe-manga';
-import { ForbiddenError } from '../../utils/errors/forbidden-error';
-import { InMemorySubscriptionsRepository } from 'src/repositories/in-memory/in-memory-subscriptions-repository';
-import { FAKE_MANGA } from 'src/utils/constants/fake-manga';
-import { FAKE_USER } from 'src/utils/constants/fake-user';
-import { SubscriptionNotFoundError } from 'src/utils/errors/subscription-not-fount-error';
+import { InMemorySubscriptionsRepository } from '../../repositories/in-memory/in-memory-subscriptions-repository';
+import { FAKE_MANGA } from '../../utils/constants/fake-manga';
+import { FAKE_USER } from '../../utils/constants/fake-user';
+import { SubscriptionNotFoundError } from '../../utils/errors/subscription-not-fount-error';
 
 let subscriptionsRepository: InMemorySubscriptionsRepository;
 let sut: UnsubscribeMangaUseCase;

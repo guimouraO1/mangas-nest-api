@@ -1,4 +1,4 @@
-import { SubscriptionsRepository } from 'src/repositories/subscriptions-repository';
+import { SubscriptionsRepository } from '../../repositories/subscriptions-repository';
 
 export class GetSubscriptionByIdUseCase {
     constructor(private subscriptionsRepository: SubscriptionsRepository) {}

@@ -1,12 +1,11 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { SubscribeMangaUseCase } from './subscribe-manga';
-import { ResourceNotFoundError } from '../../utils/errors/resource-not-found-error';
-import { InMemoryMangasRepository } from 'src/repositories/in-memory/in-memory-mangas-repository';
-import { InMemorySubscriptionsRepository } from 'src/repositories/in-memory/in-memory-subscriptions-repository';
-import { FAKE_MANGA } from 'src/utils/constants/fake-manga';
-import { FAKE_USER } from 'src/utils/constants/fake-user';
-import { MangaNotFoundError } from 'src/utils/errors/manga-not-found-error';
-import { AlreadySubscribedError } from 'src/utils/errors/already-subscribed-error';
+import { InMemoryMangasRepository } from '../../repositories/in-memory/in-memory-mangas-repository';
+import { InMemorySubscriptionsRepository } from '../../repositories/in-memory/in-memory-subscriptions-repository';
+import { FAKE_MANGA } from '../../utils/constants/fake-manga';
+import { FAKE_USER } from '../../utils/constants/fake-user';
+import { MangaNotFoundError } from '../../utils/errors/manga-not-found-error';
+import { AlreadySubscribedError } from '../../utils/errors/already-subscribed-error';
 
 let subscriptionsRepository: InMemorySubscriptionsRepository;
 let mangasRepository: InMemoryMangasRepository;

@@ -1,11 +1,11 @@
-import { AuthenticateRequestBodyZod } from 'src/utils/validators/auth/sign-in.schema';
+import { AuthenticateRequestBodyZod } from '../../../utils/validators/auth/sign-in.schema';
 import { FastifyTypedInstance } from '../../../@types/fastify-type';
-import { BadRequestSchema } from 'src/utils/validators/errors/bad-request-schema';
-import { InternalServerErrorSchema } from 'src/utils/validators/errors/internal-server-error-schema';
-import { UnauthorizedSchema } from 'src/utils/validators/errors/unauthorized-schema';
-import { TokenResponseSchema } from 'src/utils/validators/token-schema';
+import { BadRequestSchema } from '../../../utils/validators/errors/bad-request-schema';
+import { InternalServerErrorSchema } from '../../../utils/validators/errors/internal-server-error-schema';
+import { UnauthorizedSchema } from '../../../utils/validators/errors/unauthorized-schema';
+import { TokenResponseSchema } from '../../../utils/validators/token-schema';
 import { signIn } from './sign-in.controller';
-import { SignOutResponseSchema } from 'src/utils/validators/auth/sign-out-schema';
+import { SignOutResponseSchema } from '../../../utils/validators/auth/sign-out-schema';
 import { signOut } from './sign-out.controller';
 import { refreshToken } from './refresh-token.controller';
 

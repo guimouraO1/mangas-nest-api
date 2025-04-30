@@ -1,10 +1,10 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { RegisterUseCase } from './register';
 import { compare } from 'bcryptjs';
-import { InMemoryUsersRepository } from 'src/repositories/in-memory/in-memory-users-repository';
-import { FAKE_USER, FAKE_USER_SIGN_IN } from 'src/utils/constants/fake-user';
-import { EmailAlreadyRegistredError } from 'src/utils/errors/email-already-registred-error';
-import { UsernameAlreadyRegistredError } from 'src/utils/errors/username-already-registred-error';
+import { InMemoryUsersRepository } from '../../repositories/in-memory/in-memory-users-repository';
+import { FAKE_USER, FAKE_USER_SIGN_IN } from '../../utils/constants/fake-user';
+import { EmailAlreadyRegistredError } from '../../utils/errors/email-already-registred-error';
+import { UsernameAlreadyRegistredError } from '../../utils/errors/username-already-registred-error';
 
 let usersRepository: InMemoryUsersRepository;
 let sut: RegisterUseCase;

@@ -1,9 +1,9 @@
 import { beforeEach, describe, expect, it } from 'vitest';
 import { AuthenticateUseCase } from './authenticate';
-import { InMemoryUsersRepository } from 'src/repositories/in-memory/in-memory-users-repository';
-import { FAKE_USER, FAKE_USER_SIGN_IN } from 'src/utils/constants/fake-user';
-import { UserNotFound } from 'src/utils/errors/user-not-found';
-import { InvalidPasswordError } from 'src/utils/errors/invalid-password-error';
+import { InMemoryUsersRepository } from '../../repositories/in-memory/in-memory-users-repository';
+import { FAKE_USER, FAKE_USER_SIGN_IN } from '../../utils/constants/fake-user';
+import { UserNotFound } from '../../utils/errors/user-not-found';
+import { InvalidPasswordError } from '../../utils/errors/invalid-password-error';
 
 let usersRepository: InMemoryUsersRepository;
 let sut: AuthenticateUseCase;

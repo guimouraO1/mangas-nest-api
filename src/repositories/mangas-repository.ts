@@ -1,5 +1,5 @@
-import { CreateMangaType } from 'src/utils/validators/mangas/create-manga-schema';
-import { GetPaginatedMangas, GetPaginatedMangasResponse } from 'src/utils/validators/mangas/get-manga-schema';
+import { CreateMangaType } from '../utils/validators/mangas/create-manga-schema';
+import { GetPaginatedMangas, GetPaginatedMangasResponse } from '../utils/validators/mangas/get-manga-schema';
 
 type WeekDay = 'mon' | 'tue' | 'wed' | 'thu' | 'fri' | 'sat' | 'sun'
 export type Manga = {

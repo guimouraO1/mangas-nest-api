@@ -1,8 +1,8 @@
 import { FastifyRequest, FastifyReply } from 'fastify';
-import { makeRegisterUseCase } from 'src/use-cases/_factories/make-register-use-case';
-import { CreateUserRequestSchemaType } from 'src/utils/validators/user/create-user-schema';
-import { UsernameAlreadyRegistredError } from 'src/utils/errors/username-already-registred-error';
-import { EmailAlreadyRegistredError } from 'src/utils/errors/email-already-registred-error';
+import { makeRegisterUseCase } from '../../../use-cases/_factories/make-register-use-case';
+import { CreateUserRequestSchemaType } from '../../../utils/validators/user/create-user-schema';
+import { UsernameAlreadyRegistredError } from '../../../utils/errors/username-already-registred-error';
+import { EmailAlreadyRegistredError } from '../../../utils/errors/email-already-registred-error';
 
 export async function register(request: FastifyRequest, reply: FastifyReply) {
     const { name, username, email, password } = request.body as CreateUserRequestSchemaType;

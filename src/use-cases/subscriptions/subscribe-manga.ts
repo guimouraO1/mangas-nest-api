@@ -1,8 +1,8 @@
-import { MangasRepository } from 'src/repositories/mangas-repository';
-import { SubscriptionsRepository } from 'src/repositories/subscriptions-repository';
-import { Subscribe } from 'src/utils/validators/subscriptions/subscribe-schema';
-import { MangaNotFoundError } from 'src/utils/errors/manga-not-found-error';
-import { AlreadySubscribedError } from 'src/utils/errors/already-subscribed-error';
+import { MangasRepository } from '../../repositories/mangas-repository';
+import { SubscriptionsRepository } from '../../repositories/subscriptions-repository';
+import { Subscribe } from '../../utils/validators/subscriptions/subscribe-schema';
+import { MangaNotFoundError } from '../../utils/errors/manga-not-found-error';
+import { AlreadySubscribedError } from '../../utils/errors/already-subscribed-error';
 
 export class SubscribeMangaUseCase {
     constructor(private subscriptionsRepository: SubscriptionsRepository, private mangasRepository: MangasRepository) {}

@@ -1,4 +1,4 @@
-import { PrismaMangasRepository } from 'src/repositories/prisma/prisma-mangas-repository';
+import { PrismaMangasRepository } from '../../repositories/prisma/prisma-mangas-repository';
 import { CreateMangaUseCase } from '../mangas/create-manga';
 
 export function makeCreateMangaUseCase() {

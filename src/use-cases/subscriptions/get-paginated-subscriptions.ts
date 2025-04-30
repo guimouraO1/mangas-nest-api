@@ -1,5 +1,5 @@
-import { SubscriptionsRepository } from 'src/repositories/subscriptions-repository';
-import { GetPaginatedSubscriptions } from 'src/utils/validators/subscriptions/get-subscriptions-schema';
+import { SubscriptionsRepository } from '../../repositories/subscriptions-repository';
+import { GetPaginatedSubscriptions } from '../../utils/validators/subscriptions/get-subscriptions-schema';
 
 export class GetPaginatedSubscriptionsUseCase {
     constructor(private subscriptionsRepository: SubscriptionsRepository) {}
