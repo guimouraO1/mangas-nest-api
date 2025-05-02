@@ -64,13 +64,14 @@ model Chapter {
 }
 
 model Subscription {
-  id       String    @id @default(uuid())
-  user     User      @relation(fields: [userId], references: [id], onDelete: Cascade)
-  userId   String
-  manga    Manga     @relation(fields: [mangaId], references: [id], onDelete: Cascade)
-  mangaId  String
-  rating   Int
-  chapters Chapter[]
+  id        String    @id @default(uuid())
+  user      User      @relation(fields: [userId], references: [id], onDelete: Cascade)
+  userId    String
+  manga     Manga     @relation(fields: [mangaId], references: [id], onDelete: Cascade)
+  mangaId   String
+  rating    Int
+  updatedAt DateTime  @default(now())
+  chapters  Chapter[]
 
   @@unique([userId, mangaId])
   @@map("subscriptions")

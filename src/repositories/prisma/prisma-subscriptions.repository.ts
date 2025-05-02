@@ -1,10 +1,15 @@
 import { prisma } from '../../lib/prisma';
-import { Subscription, SubscriptionsRepository } from '../subscriptions-repository';
+import { SubscriptionsRepository } from '../subscriptions-repository';
 import { LAST_CHAPTERS_OFFSEET } from '../../utils/constants/default-offset-chapters';
 import { GetPaginatedSubscriptions } from '../../utils/validators/subscriptions/get-subscriptions-schema';
 import { Subscribe } from '../../utils/validators/subscriptions/subscribe-schema';
 
 export class PrismaSubscriptionsRepository implements SubscriptionsRepository {
+    async update(subscriptionId: string) {
+        const subscription = await prisma.subscription.update({ where: { id: subscriptionId }, data: { updatedAt: new Date() } });
+        return subscription;
+    }
+
     async getSubscriptionById(subscriptionId: string) {
         const subscription = await prisma.subscription.findUnique({ where: { id: subscriptionId } });
         return subscription;
@@ -45,6 +50,7 @@ export class PrismaSubscriptionsRepository implements SubscriptionsRepository {
                     orderBy: { number: 'desc' }
                 }
             },
+            orderBy: { updatedAt: 'desc' },
             skip,
             take: offset
         });
@@ -55,4 +61,5 @@ export class PrismaSubscriptionsRepository implements SubscriptionsRepository {
 
         return { subscriptions, subscriptionsCount };
     }
+
 }

@@ -20,6 +20,8 @@ export class DeleteChapterUseCase {
         }
 
         const chapter = await this.chaptersRepository.delete({ subscriptionId, number });
+        await this.subscriptionsRepository.update(subscriptionId);
+
         return chapter;
     }
 }

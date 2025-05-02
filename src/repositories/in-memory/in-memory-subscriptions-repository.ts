@@ -10,6 +10,20 @@ export class InMemorySubscriptionsRepository implements SubscriptionsRepository 
         return subscription ?? null;
     }
 
+    async update(subscriptionId: string) {
+        const index = this.subscriptions.findIndex((subscription) => subscription.id === subscriptionId);
+
+        if (index !== -1) {
+            this.subscriptions[index] = {
+                ...this.subscriptions[index],
+                updatedAt: new Date()
+            };
+            return this.subscriptions[index];
+        }
+
+        return null;
+    }
+
     async getSubscriptionById(subscriptionId: string) {
         const subscription = this.subscriptions.find((subscription) => subscription.id === subscriptionId);
         return subscription ?? null;
@@ -20,7 +34,8 @@ export class InMemorySubscriptionsRepository implements SubscriptionsRepository 
             id: crypto.randomUUID(),
             mangaId: data.mangaId,
             userId: data.userId,
-            rating: data.rating
+            rating: data.rating,
+            updatedAt: new Date()
         };
 
         this.subscriptions.push(subscription);

@@ -6,6 +6,7 @@ export type Subscription = {
     userId: string;
     mangaId: string;
     rating: number;
+    updatedAt: Date;
 }
 
 export interface SubscriptionsRepository {
@@ -14,4 +15,5 @@ export interface SubscriptionsRepository {
     getPaginatedSubscriptions(data: GetPaginatedSubscriptions): Promise<GetPaginatedSubscriptionsResponse>;
     getSubscriptionById(subscriptionId: string): Promise<Subscription | null>;
     getSubscriptionByUserId(userId: string, mangaId: string): Promise<Subscription | null>;
+    update(subscriptionId: string): Promise<Subscription | null>;
 }

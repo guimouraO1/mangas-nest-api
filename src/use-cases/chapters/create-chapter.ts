@@ -19,6 +19,8 @@ export class CreateChapterUseCase {
         }
 
         const chapter = await this.chaptersRepository.create({ subscriptionId, number });
+        await this.subscriptionsRepository.update(subscriptionId);
+
         return chapter;
     }
 }
